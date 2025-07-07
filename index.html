@@ -1,0 +1,2165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corefinity - Magento Store Configuration Wizard</title>
+    <style>
+        :root {
+            --primary-color: #4a6bff;
+            --secondary-color: #2d3748;
+            --tertiary-color: #4a5568;
+            --light-bg: #f7fafc;
+            --white: #ffffff;
+            --border-color: #e2e8f0;
+            --success-color: #48bb78;
+            --warning-color: #ed8936;
+            --error-color: #f56565;
+            --sidebar-width: 280px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: var(--light-bg);
+            color: var(--secondary-color);
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--white);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: fixed;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 0.75rem;
+        }
+
+        .logo h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .nav-steps {
+            flex-grow: 1;
+        }
+
+        .step-item {
+            margin-bottom: 0.5rem;
+            border-radius: 0.375rem;
+            transition: all 0.2s ease;
+        }
+
+        .step-item a {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            color: var(--tertiary-color);
+            font-weight: 500;
+        }
+
+        .step-item.active {
+            background-color: rgba(74, 107, 255, 0.1);
+        }
+
+        .step-item.active a {
+            color: var(--primary-color);
+        }
+
+        .step-item.completed a {
+            color: var(--secondary-color);
+        }
+
+        .step-item .step-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--border-color);
+            margin-right: 0.75rem;
+            color: var(--tertiary-color);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .step-item.active .step-icon {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .step-item.completed .step-icon {
+            background-color: var(--success-color);
+            color: var(--white);
+        }
+
+        .logout-btn {
+            margin-top: auto;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            color: var(--error-color);
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 0.375rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: rgba(245, 101, 101, 0.1);
+        }
+
+        .logout-btn i {
+            margin-right: 0.75rem;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex-grow: 1;
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .wizard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .wizard-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: var(--border-color);
+            border-radius: 0.5rem;
+            height: 8px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 0.5rem;
+            transition: width 0.3s ease;
+        }
+
+        /* Wizard Step Styles */
+        .wizard-step {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .wizard-step.active {
+            display: block;
+        }
+
+        .step-card {
+            background-color: var(--white);
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--tertiary-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.2);
+        }
+
+        .form-text {
+            font-size: 0.875rem;
+            color: var(--tertiary-color);
+            margin-top: 0.5rem;
+        }
+
+        /* Platform Selection Styles */
+        .platform-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .platform-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .platform-option:hover {
+            border-color: var(--primary-color);
+        }
+
+        .platform-option.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(74, 107, 255, 0.05);
+        }
+
+        .platform-option img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        .platform-option h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        /* Dependencies Styles */
+        .dependencies-container {
+            display: none;
+            margin-top: 2rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .dependencies-container.show {
+            display: block;
+        }
+
+        .dependencies-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .dependency-item {
+            background-color: var(--light-bg);
+            padding: 1rem;
+            border-radius: 0.375rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .dependency-item i {
+            margin-right: 0.75rem;
+            color: var(--primary-color);
+        }
+
+        /* Theme Selection Styles */
+        .theme-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .theme-option {
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .theme-option:hover {
+            border-color: var(--primary-color);
+        }
+
+        .theme-option.selected {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.2);
+        }
+
+        .theme-preview {
+            height: 180px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--tertiary-color);
+            font-weight: 500;
+        }
+
+        .theme-info {
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .theme-info h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .theme-info p {
+            font-size: 0.875rem;
+            color: var(--tertiary-color);
+        }
+
+        /* Color Picker Styles */
+        .color-picker-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .color-picker-label {
+            width: 120px;
+            font-weight: 500;
+            color: var(--tertiary-color);
+        }
+
+        .color-picker {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            margin-right: 1rem;
+        }
+
+        .color-value {
+            font-family: monospace;
+            color: var(--tertiary-color);
+        }
+
+        /* Image Upload Styles */
+        .image-upload-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .image-upload-box {
+            border: 1px dashed var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .image-upload-box:hover {
+            border-color: var(--primary-color);
+        }
+
+        .image-upload-box .upload-icon {
+            font-size: 2rem;
+            color: var(--tertiary-color);
+            margin-bottom: 1rem;
+        }
+
+        .image-upload-box h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .image-upload-box p {
+            font-size: 0.875rem;
+            color: var(--tertiary-color);
+            margin-bottom: 1rem;
+        }
+
+        .upload-btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-radius: 0.375rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .upload-btn:hover {
+            background-color: #3a5bed;
+        }
+
+        .image-preview {
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 120px;
+            border-radius: 0.25rem;
+        }
+
+        /* Font Selection Styles */
+        .font-options {
+            margin-bottom: 1.5rem;
+        }
+
+        .font-search-container {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .font-search {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.375rem;
+            font-size: 1rem;
+        }
+
+        .font-search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--tertiary-color);
+        }
+
+        .font-list {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 0.375rem;
+        }
+
+        .font-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .font-item:hover {
+            background-color: var(--light-bg);
+        }
+
+        .font-item.selected {
+            background-color: rgba(74, 107, 255, 0.1);
+            color: var(--primary-color);
+        }
+
+        .use-default-font {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .use-default-font input {
+            margin-right: 0.5rem;
+        }
+
+        /* Modules Selection Styles */
+        .modules-container {
+            margin-bottom: 2rem;
+        }
+
+        .module-category {
+            margin-bottom: 2rem;
+        }
+
+        .category-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .category-title i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .module-card {
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .module-card:hover {
+            border-color: var(--primary-color);
+        }
+
+        .module-card.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(74, 107, 255, 0.05);
+        }
+
+        .module-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .module-checkbox {
+            margin-right: 0.75rem;
+            margin-top: 0.25rem;
+        }
+
+        .module-info {
+            flex-grow: 1;
+        }
+
+        .module-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--secondary-color);
+        }
+
+        .module-description {
+            font-size: 0.875rem;
+            color: var(--tertiary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .module-license {
+            font-size: 0.75rem;
+            color: var(--warning-color);
+            font-weight: 500;
+        }
+
+        /* Preview Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            border-radius: 0.5rem;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--tertiary-color);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            max-height: calc(90vh - 120px);
+        }
+
+        .preview-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .preview-tab {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--tertiary-color);
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .preview-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .preview-content {
+            display: none;
+        }
+
+        .preview-content.active {
+            display: block;
+        }
+
+        .desktop-preview {
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .desktop-header {
+            background-color: var(--secondary-color);
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .desktop-header-buttons {
+            display: flex;
+            margin-right: 1rem;
+        }
+
+        .desktop-header-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .desktop-header-btn.red {
+            background-color: #ff5f56;
+        }
+
+        .desktop-header-btn.yellow {
+            background-color: #ffbd2e;
+        }
+
+        .desktop-header-btn.green {
+            background-color: #27c93f;
+        }
+
+        .desktop-navbar {
+            background-color: var(--secondary-color);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .desktop-logo {
+            height: 30px;
+        }
+
+        .desktop-nav-links {
+            display: flex;
+        }
+
+        .desktop-nav-link {
+            color: var(--white);
+            margin-left: 1.5rem;
+            text-decoration: none;
+        }
+
+        .desktop-hero {
+            height: 300px;
+            background-color: var(--light-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--tertiary-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .desktop-products {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .desktop-product {
+            border: 1px solid var(--border-color);
+            border-radius: 0.375rem;
+            padding: 1rem;
+        }
+
+        .desktop-product-image {
+            height: 120px;
+            background-color: #f0f0f0;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--tertiary-color);
+        }
+
+        .desktop-product-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .desktop-product-price {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .desktop-product-btn {
+            display: block;
+            width: 100%;
+            padding: 0.5rem;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 0.25rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .mobile-preview {
+            width: 320px;
+            margin: 0 auto;
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .mobile-status-bar {
+            background-color: var(--secondary-color);
+            padding: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            color: var(--white);
+            font-size: 0.75rem;
+        }
+
+        .mobile-navbar {
+            background-color: var(--secondary-color);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-logo {
+            height: 24px;
+        }
+
+        .mobile-menu-btn {
+            color: var(--white);
+            font-size: 1.25rem;
+        }
+
+        .mobile-hero {
+            height: 180px;
+            background-color: var(--light-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--tertiary-color);
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .mobile-products {
+            padding: 1rem;
+        }
+
+        .mobile-product {
+            border: 1px solid var(--border-color);
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .mobile-product-image {
+            height: 100px;
+            background-color: #f0f0f0;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--tertiary-color);
+        }
+
+        .mobile-product-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .mobile-product-price {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .mobile-product-btn {
+            display: block;
+            width: 100%;
+            padding: 0.5rem;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 0.25rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* Navigation Buttons */
+        .wizard-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: #3a5bed;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--tertiary-color);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Summary Styles */
+        .summary-section {
+            margin-bottom: 2rem;
+        }
+
+        .summary-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .summary-title i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .summary-content {
+            background-color: var(--light-bg);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+        }
+
+        .summary-item {
+            margin-bottom: 0.75rem;
+            display: flex;
+        }
+
+        .summary-label {
+            font-weight: 500;
+            color: var(--tertiary-color);
+            width: 160px;
+        }
+
+        .summary-value {
+            flex-grow: 1;
+        }
+
+        .modules-summary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .module-tag {
+            background-color: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.875rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .platform-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .theme-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .dependencies-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 1rem;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 1.5rem;
+            }
+            
+            .platform-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .image-upload-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .module-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .wizard-nav {
+                flex-direction: column-reverse;
+                gap: 1rem;
+            }
+            
+            .wizard-nav .btn {
+                width: 100%;
+            }
+            
+            .summary-item {
+                flex-direction: column;
+            }
+            
+            .summary-label {
+                width: 100%;
+                margin-bottom: 0.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="logo">
+            <img src="https://www.corefinity.com/images/logo.svg" alt="Corefinity Logo">
+         
+        </div>
+        
+        <div class="nav-steps">
+            <div class="step-item active" data-step="1">
+                <a href="#">
+                    <span class="step-icon">1</span>
+                    <span>Introduction</span>
+                </a>
+            </div>
+            <div class="step-item" data-step="2">
+                <a href="#">
+                    <span class="step-icon">2</span>
+                    <span>Platform</span>
+                </a>
+            </div>
+            <div class="step-item" data-step="3">
+                <a href="#">
+                    <span class="step-icon">3</span>
+                    <span>Modules</span>
+                </a>
+            </div>
+            <div class="step-item" data-step="4">
+                <a href="#">
+                    <span class="step-icon">4</span>
+                    <span>Styles</span>
+                </a>
+            </div>
+            <div class="step-item" data-step="5">
+                <a href="#">
+                    <span class="step-icon">5</span>
+                    <span>Sample Data</span>
+                </a>
+            </div>
+            <div class="step-item" data-step="6">
+                <a href="#">
+                    <span class="step-icon">6</span>
+                    <span>Summary</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="logout-btn">
+            <i>🔒</i>
+            <span>Logout</span>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="wizard-header">
+            <h2>Magento Store Configuration Wizard</h2>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar" style="width: 16.66%"></div>
+        </div>
+        
+        <!-- Step 1: Introduction -->
+        <div class="wizard-step active" id="step-1">
+            <div class="step-card">
+                <h3 class="step-title">Welcome to Corefinity's Store Configurator</h3>
+                <p>This wizard will guide you through the process of setting up your Magento store. Please provide a name for your store configuration.</p>
+                
+                <div class="form-group" style="margin-top: 2rem;">
+                    <label for="config-name" class="form-label">Configuration Name</label>
+                    <input type="text" id="config-name" class="form-control" placeholder="e.g., My Awesome Store">
+                    <p class="form-text">This name will help you identify this configuration later.</p>
+                </div>
+            </div>
+            
+            <div class="wizard-nav">
+                <button class="btn btn-outline" disabled>Previous</button>
+                <button class="btn btn-primary next-step" data-next="2">Next Step</button>
+            </div>
+        </div>
+        
+        <!-- Step 2: Platform Selection -->
+        <div class="wizard-step" id="step-2">
+            <div class="step-card">
+                <h3 class="step-title">Select Your Platform</h3>
+                <p>Choose the e-commerce platform you want to use for your store.</p>
+                
+                <div class="platform-options">
+                    <div class="platform-option" data-platform="magento">
+                        <img src="https://cdn.worldvectorlogo.com/logos/magento-1.svg" alt="Magento Logo">
+                        <h3>Magento</h3>
+                    </div>
+                    <div class="platform-option" data-platform="laravel">
+                        <img src="https://cdn.worldvectorlogo.com/logos/laravel-2.svg" alt="Laravel Logo">
+                        <h3>Laravel</h3>
+                    </div>
+                    <div class="platform-option" data-platform="wordpress">
+                        <img src="https://cdn.worldvectorlogo.com/logos/wordpress-blue.svg" alt="WordPress Logo">
+                        <h3>WordPress</h3>
+                    </div>
+                </div>
+                
+                <div class="form-group platform-version-group" style="display: none;">
+                    <label for="platform-version" class="form-label">Platform Version</label>
+                    <select id="platform-version" class="form-control">
+                        <option value="">Select a version</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+                
+                <div class="dependencies-container">
+                    <h4 style="margin-bottom: 1rem;">Required Dependencies</h4>
+                    <div class="dependencies-grid">
+                        <!-- Dependencies will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="wizard-nav">
+                <button class="btn btn-outline prev-step" data-prev="1">Previous</button>
+                <button class="btn btn-primary next-step" data-next="3" disabled>Next Step</button>
+            </div>
+        </div>
+        
+        <!-- Step 3: Modules Selection -->
+        <div class="wizard-step" id="step-3">
+            <div class="step-card">
+                <h3 class="step-title">Select Modules</h3>
+                <p>Choose the modules and extensions you want to include in your store.</p>
+                
+                <div class="modules-container">
+                    <div class="module-category">
+                        <div class="category-title">
+                            <i>📦</i>
+                            <span>Core Modules</span>
+                        </div>
+                        
+                        <div class="module-grid">
+                            <div class="module-card">
+                                <div class="module-header">
+                                    <input type="checkbox" class="module-checkbox" id="module-catalog" data-module="Catalog">
+                                    <div class="module-info">
+                                        <h4 class="module-title">Catalog</h4>
+                                        <p class="module-description">Product catalog management with categories, attributes, and inventory.</p>
+                                        <p class="module-license">Requires license key</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="module-card">
+                                <div class="module-header">
+                                    <input type="checkbox" class="module-checkbox" id="module-checkout" data-module="Checkout">
+                                    <div class="module-info">
+                                        <h4 class="module-title">Checkout</h4>
+                                        <p class="module-description">Streamlined checkout process with multiple payment options.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="module-card">
+                                <div class="module-header">
+                                    <input type="checkbox" class="module-checkbox" id="module-cms" data-module="CMS">
+                                    <div class="module-info">
+                                        <h4 class="module-title">CMS</h4>
+                                        <p class="module-description">Content management system for pages, blocks, and widgets.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="module-card">
+                                <div class="module-header">
+                                    <input type="checkbox" class="module-checkbox" id="module-customer" data-module="Customer">
+                                    <div class="module-info">
+                                        <h4 class="module-title">Customer</h4>
+                                        <p class="module-description">Customer account management and authentication.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="module-category">
+                        <div class="category-title">
+                            <i>🚀</i>
+                            <span>Performance Modules</span>
+                        </div>
+                        
+                        <div class="module-grid">
+                            <div class="module-card">
+                                <div class="module-header">
+                                    <input type="checkbox" class="module-checkbox" id="module-cache" data-module="Full Page Cache">
+                                    <div class="module-info">
+                                        <h4 class="module-title">Full Page Cache</h4>
+                                        <p class="module-description">Improves performance by caching entire pages.</p>
+                                        <p class="module-license">Requires license key</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="module-card">
+                                <div class="module-header">
+                                    <input type="checkbox" class="module-checkbox" id="module-varnish" data-module="Varnish Cache">
+                                    <div class="module-info">
+                                        <h4 class="module-title">Varnish Cache</h4>
+                                        <p class="module-description">High-performance HTTP accelerator for faster page loads.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="module-card">
+                                <div class="module-header">
+                                    <input type="checkbox" class="module-checkbox" id="module-redis" data-module="Redis">
+                                    <div class="module-info">
+                                        <h4 class="module-title">Redis</h4>
+                                        <p class="module-description">In-memory data structure store for session and cache.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="module-category">
+                        <div class="category-title">
+                            <i>💰</i>
+                            <span>Payment Modules</span>
+                        </div>
+                        
+                        <div class="module-grid">
+                            <div class="module-card">
+                                <div class="module-header">
+                                    <input type="checkbox" class="module-checkbox" id="module-paypal" data-module="PayPal">
+                                    <div class="module-info">
+                                        <h4 class="module-title">PayPal</h4>
+                                        <p class="module-description">Accept PayPal payments with various options.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="module-card">
+                                <div class="module-header">
+                                    <input type="checkbox" class="module-checkbox" id="module-stripe" data-module="Stripe">
+                                    <div class="module-info">
+                                        <h4 class="module-title">Stripe</h4>
+                                        <p class="module-description">Credit card payments via Stripe gateway.</p>
+                                        <p class="module-license">Requires license key</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="module-card">
+                                <div class="module-header">
+                                    <input type="checkbox" class="module-checkbox" id="module-klarna" data-module="Klarna">
+                                    <div class="module-info">
+                                        <h4 class="module-title">Klarna</h4>
+                                        <p class="module-description">Buy now, pay later payment options.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="wizard-nav">
+                <button class="btn btn-outline prev-step" data-prev="2">Previous</button>
+                <button class="btn btn-primary next-step" data-next="4">Next Step</button>
+            </div>
+        </div>
+        
+        <!-- Step 4: Styles Selection -->
+        <div class="wizard-step" id="step-4">
+            <div class="step-card">
+                <h3 class="step-title">Customize Your Store's Appearance</h3>
+                <p>Select a theme and customize the visual style of your store.</p>
+                
+                <div class="form-group">
+                    <label class="form-label">Theme Selection</label>
+                    <div class="theme-options">
+                        <div class="theme-option selected" data-theme="luma">
+                            <div class="theme-preview">
+                                Luma Theme Preview
+                            </div>
+                            <div class="theme-info">
+                                <h3>Luma</h3>
+                                <p>Magento's default theme with modern design elements.</p>
+                            </div>
+                        </div>
+                        <div class="theme-option" data-theme="hyva">
+                            <div class="theme-preview">
+                                Hyva Theme Preview
+                            </div>
+                            <div class="theme-info">
+                                <h3>Hyva</h3>
+                                <p>High-performance theme with Alpine.js and Tailwind CSS.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Color Scheme</label>
+                    
+                    <div class="color-picker-group">
+                        <div class="color-picker-label">Primary Color</div>
+                        <input type="color" class="color-picker" id="primary-color" value="#4a6bff">
+                        <div class="color-value">#4a6bff</div>
+                    </div>
+                    
+                    <div class="color-picker-group">
+                        <div class="color-picker-label">Secondary Color</div>
+                        <input type="color" class="color-picker" id="secondary-color" value="#2d3748">
+                        <div class="color-value">#2d3748</div>
+                    </div>
+                    
+                    <div class="color-picker-group">
+                        <div class="color-picker-label">Tertiary Color</div>
+                        <input type="color" class="color-picker" id="tertiary-color" value="#4a5568">
+                        <div class="color-value">#4a5568</div>
+                    </div>
+                    
+                    <button class="btn btn-outline" id="preview-btn" style="margin-top: 1rem;">
+                        Preview Theme
+                    </button>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Logo & Favicon</label>
+                    
+                    <div class="image-upload-container">
+                        <div class="image-upload-box" id="logo-upload">
+                            <div class="upload-icon">🖼️</div>
+                            <h3>Store Logo</h3>
+                            <p>Recommended size: 300x100px (PNG or SVG)</p>
+                            <div class="upload-btn">Upload Logo</div>
+                            <input type="file" id="logo-file" accept="image/png, image/svg+xml" style="display: none;">
+                            <div class="image-preview" id="logo-preview"></div>
+                        </div>
+                        
+                        <div class="image-upload-box" id="favicon-upload">
+                            <div class="upload-icon">📌</div>
+                            <h3>Favicon</h3>
+                            <p>Recommended size: 64x64px (ICO or PNG)</p>
+                            <div class="upload-btn">Upload Favicon</div>
+                            <input type="file" id="favicon-file" accept="image/png, image/x-icon" style="display: none;">
+                            <div class="image-preview" id="favicon-preview"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Font Selection</label>
+                    
+                    <div class="font-options">
+                        <div class="font-search-container">
+                            <i class="font-search-icon">🔍</i>
+                            <input type="text" class="font-search" placeholder="Search Google Fonts...">
+                        </div>
+                        
+                        <div class="font-list">
+                            <div class="font-item selected" data-font="Roboto">Roboto</div>
+                            <div class="font-item" data-font="Open Sans">Open Sans</div>
+                            <div class="font-item" data-font="Montserrat">Montserrat</div>
+                            <div class="font-item" data-font="Poppins">Poppins</div>
+                            <div class="font-item" data-font="Lato">Lato</div>
+                            <div class="font-item" data-font="Nunito">Nunito</div>
+                            <div class="font-item" data-font="Playfair Display">Playfair Display</div>
+                            <div class="font-item" data-font="Merriweather">Merriweather</div>
+                        </div>
+                        
+                        <div class="use-default-font">
+                            <input type="checkbox" id="use-default-font">
+                            <label for="use-default-font">Use default theme font</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="wizard-nav">
+                <button class="btn btn-outline prev-step" data-prev="3">Previous</button>
+                <button class="btn btn-primary next-step" data-next="5">Next Step</button>
+            </div>
+        </div>
+        
+        <!-- Step 5: Sample Data -->
+        <div class="wizard-step" id="step-5">
+            <div class="step-card">
+                <h3 class="step-title">Sample Data</h3>
+                <p>Would you like to install sample data to help you get started?</p>
+                
+                <div class="form-group" style="margin-top: 2rem;">
+                    <div class="form-check">
+                        <input type="checkbox" id="install-sample-data" class="form-check-input">
+                        <label for="install-sample-data" class="form-check-label">Install Sample Data</label>
+                    </div>
+                    <p class="form-text">Sample data includes demo products, categories, pages, and configurations to help you understand how Magento works.</p>
+                </div>
+            </div>
+            
+            <div class="wizard-nav">
+                <button class="btn btn-outline prev-step" data-prev="4">Previous</button>
+                <button class="btn btn-primary next-step" data-next="6">Next Step</button>
+            </div>
+        </div>
+        
+        <!-- Step 6: Summary -->
+        <div class="wizard-step" id="step-6">
+            <div class="step-card">
+                <h3 class="step-title">Review Your Configuration</h3>
+                <p>Please review your selections before completing the setup.</p>
+                
+                <div class="summary-section">
+                    <div class="summary-title">
+                        <i>📝</i>
+                        <span>Basic Information</span>
+                    </div>
+                    <div class="summary-content">
+                        <div class="summary-item">
+                            <div class="summary-label">Configuration Name:</div>
+                            <div class="summary-value" id="summary-config-name">My Awesome Store</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="summary-section">
+                    <div class="summary-title">
+                        <i>🖥️</i>
+                        <span>Platform</span>
+                    </div>
+                    <div class="summary-content">
+                        <div class="summary-item">
+                            <div class="summary-label">Platform:</div>
+                            <div class="summary-value" id="summary-platform">Magento</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">Version:</div>
+                            <div class="summary-value" id="summary-version">2.4.7</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">Dependencies:</div>
+                            <div class="summary-value">
+                                <div>PHP: 8.3</div>
+                                <div>MariaDB: 10.6</div>
+                                <div>Redis: 7.2</div>
+                                <div>OpenSearch: 2.11</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="summary-section">
+                    <div class="summary-title">
+                        <i>📦</i>
+                        <span>Modules</span>
+                    </div>
+                    <div class="summary-content">
+                        <div class="modules-summary" id="modules-summary">
+                            <div class="module-tag">Catalog</div>
+                            <div class="module-tag">Checkout</div>
+                            <div class="module-tag">CMS</div>
+                            <div class="module-tag">Full Page Cache</div>
+                            <div class="module-tag">PayPal</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="summary-section">
+                    <div class="summary-title">
+                        <i>🎨</i>
+                        <span>Styles</span>
+                    </div>
+                    <div class="summary-content">
+                        <div class="summary-item">
+                            <div class="summary-label">Theme:</div>
+                            <div class="summary-value" id="summary-theme">Luma</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">Colors:</div>
+                            <div class="summary-value">
+                                <div>Primary: <span style="color: #4a6bff;">#4a6bff</span></div>
+                                <div>Secondary: <span style="color: #2d3748;">#2d3748</span></div>
+                                <div>Tertiary: <span style="color: #4a5568;">#4a5568</span></div>
+                            </div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">Font:</div>
+                            <div class="summary-value" id="summary-font">Roboto</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">Logo:</div>
+                            <div class="summary-value" id="summary-logo">Uploaded</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">Favicon:</div>
+                            <div class="summary-value" id="summary-favicon">Uploaded</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="summary-section">
+                    <div class="summary-title">
+                        <i>📊</i>
+                        <span>Sample Data</span>
+                    </div>
+                    <div class="summary-content">
+                        <div class="summary-item">
+                            <div class="summary-label">Install Sample Data:</div>
+                            <div class="summary-value" id="summary-sample-data">Yes</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="wizard-nav">
+                <button class="btn btn-outline prev-step" data-prev="5">Previous</button>
+                <button class="btn btn-primary" id="complete-btn">Build & Deploy Site</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Preview Modal -->
+    <div class="modal" id="preview-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Theme Preview</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="preview-tabs">
+                    <div class="preview-tab active" data-tab="desktop">Desktop</div>
+                    <div class="preview-tab" data-tab="mobile">Mobile</div>
+                </div>
+                
+                <div class="preview-content active" id="desktop-preview">
+                    <div class="desktop-preview">
+                        <div class="desktop-header">
+                            <div class="desktop-header-buttons">
+                                <div class="desktop-header-btn red"></div>
+                                <div class="desktop-header-btn yellow"></div>
+                                <div class="desktop-header-btn green"></div>
+                            </div>
+                            <div class="desktop-header-url">https://yourstore.com</div>
+                        </div>
+                        
+                        <div class="desktop-navbar">
+                            <img src="https://via.placeholder.com/150x50?text=Your+Logo" alt="Store Logo" class="desktop-logo">
+                            <div class="desktop-nav-links">
+                                <a href="#" class="desktop-nav-link">Home</a>
+                                <a href="#" class="desktop-nav-link">Shop</a>
+                                <a href="#" class="desktop-nav-link">Categories</a>
+                                <a href="#" class="desktop-nav-link">About</a>
+                                <a href="#" class="desktop-nav-link">Contact</a>
+                            </div>
+                        </div>
+                        
+                        <div class="desktop-hero">
+                            Welcome to Your Store
+                        </div>
+                        
+                        <div class="desktop-products">
+                            <div class="desktop-product">
+                                <div class="desktop-product-image">Product Image</div>
+                                <div class="desktop-product-title">Sample Product 1</div>
+                                <div class="desktop-product-price">$29.99</div>
+                                <button class="desktop-product-btn">Add to Cart</button>
+                            </div>
+                            <div class="desktop-product">
+                                <div class="desktop-product-image">Product Image</div>
+                                <div class="desktop-product-title">Sample Product 2</div>
+                                <div class="desktop-product-price">$39.99</div>
+                                <button class="desktop-product-btn">Add to Cart</button>
+                            </div>
+                            <div class="desktop-product">
+                                <div class="desktop-product-image">Product Image</div>
+                                <div class="desktop-product-title">Sample Product 3</div>
+                                <div class="desktop-product-price">$49.99</div>
+                                <button class="desktop-product-btn">Add to Cart</button>
+                            </div>
+                            <div class="desktop-product">
+                                <div class="desktop-product-image">Product Image</div>
+                                <div class="desktop-product-title">Sample Product 4</div>
+                                <div class="desktop-product-price">$59.99</div>
+                                <button class="desktop-product-btn">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="preview-content" id="mobile-preview">
+                    <div class="mobile-preview">
+                        <div class="mobile-status-bar">
+                            <span>9:41</span>
+                            <span>📶 100% 🔋</span>
+                        </div>
+                        
+                        <div class="mobile-navbar">
+                            <img src="https://via.placeholder.com/100x30?text=Your+Logo" alt="Store Logo" class="mobile-logo">
+                            <div class="mobile-menu-btn">☰</div>
+                        </div>
+                        
+                        <div class="mobile-hero">
+                            Welcome to Your Store
+                        </div>
+                        
+                        <div class="mobile-products">
+                            <div class="mobile-product">
+                                <div class="mobile-product-image">Product Image</div>
+                                <div class="mobile-product-title">Sample Product 1</div>
+                                <div class="mobile-product-price">$29.99</div>
+                                <button class="mobile-product-btn">Add to Cart</button>
+                            </div>
+                            <div class="mobile-product">
+                                <div class="mobile-product-image">Product Image</div>
+                                <div class="mobile-product-title">Sample Product 2</div>
+                                <div class="mobile-product-price">$39.99</div>
+                                <button class="mobile-product-btn">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Platform Data
+        const platformData = {
+            magento: {
+                versions: {
+                    '2.4.7': {
+                        php: '8.3',
+                        mariadb: '10.6',
+                        redis: '7.2',
+                        opensearch: '2.11'
+                    },
+                    '2.4.6': {
+                        php: '8.2',
+                        mariadb: '10.5',
+                        redis: '7.0',
+                        opensearch: '2.9'
+                    },
+                    '2.4.5': {
+                        php: '8.1',
+                        mariadb: '10.4',
+                        redis: '6.2',
+                        opensearch: '2.6'
+                    },
+                    '2.4.4': {
+                        php: '8.0',
+                        mariadb: '10.4',
+                        redis: '6.0',
+                        opensearch: '2.4'
+                    },
+                    '2.3.7': {
+                        php: '7.4',
+                        mariadb: '10.3',
+                        redis: '5.0',
+                        opensearch: 'N/A'
+                    }
+                }
+            },
+            laravel: {
+                versions: {
+                    '11': {
+                        php: '8.2',
+                        mariadb: '10.6',
+                        redis: '7.2',
+                        opensearch: 'N/A'
+                    },
+                    '10': {
+                        php: '8.1',
+                        mariadb: '10.4',
+                        redis: '6.2',
+                        opensearch: 'N/A'
+                    },
+                    '9': {
+                        php: '8.0',
+                        mariadb: '10.3',
+                        redis: '6.0',
+                        opensearch: 'N/A'
+                    },
+                    '8': {
+                        php: '7.4',
+                        mariadb: '10.3',
+                        redis: '5.0',
+                        opensearch: 'N/A'
+                    },
+                    '7': {
+                        php: '7.3',
+                        mariadb: '10.2',
+                        redis: '5.0',
+                        opensearch: 'N/A'
+                    }
+                }
+            },
+            wordpress: {
+                versions: {
+                    '6.5': {
+                        php: '8.1',
+                        mariadb: '10.4',
+                        redis: '7.0',
+                        opensearch: 'N/A'
+                    },
+                    '6.4': {
+                        php: '8.0',
+                        mariadb: '10.3',
+                        redis: '6.0',
+                        opensearch: 'N/A'
+                    },
+                    '6.3': {
+                        php: '7.4',
+                        mariadb: '10.2',
+                        redis: '5.0',
+                        opensearch: 'N/A'
+                    },
+                    '6.2': {
+                        php: '7.3',
+                        mariadb: '10.1',
+                        redis: '5.0',
+                        opensearch: 'N/A'
+                    },
+                    '5.9': {
+                        php: '7.2',
+                        mariadb: '10.0',
+                        redis: '4.0',
+                        opensearch: 'N/A'
+                    }
+                }
+            }
+        };
+
+        // DOM Elements
+        const steps = document.querySelectorAll('.wizard-step');
+        const stepItems = document.querySelectorAll('.step-item');
+        const nextButtons = document.querySelectorAll('.next-step');
+        const prevButtons = document.querySelectorAll('.prev-step');
+        const progressBar = document.querySelector('.progress-bar');
+        const platformOptions = document.querySelectorAll('.platform-option');
+        const platformVersionGroup = document.querySelector('.platform-version-group');
+        const platformVersionSelect = document.getElementById('platform-version');
+        const dependenciesContainer = document.querySelector('.dependencies-container');
+        const dependenciesGrid = document.querySelector('.dependencies-grid');
+        const themeOptions = document.querySelectorAll('.theme-option');
+        const colorPickers = document.querySelectorAll('.color-picker');
+        const colorValues = document.querySelectorAll('.color-value');
+        const previewBtn = document.getElementById('preview-btn');
+        const previewModal = document.getElementById('preview-modal');
+        const modalClose = document.querySelector('.modal-close');
+        const previewTabs = document.querySelectorAll('.preview-tab');
+        const previewContents = document.querySelectorAll('.preview-content');
+        const logoUploadBtn = document.getElementById('logo-upload');
+        const logoFileInput = document.getElementById('logo-file');
+        const logoPreview = document.getElementById('logo-preview');
+        const faviconUploadBtn = document.getElementById('favicon-upload');
+        const faviconFileInput = document.getElementById('favicon-file');
+        const faviconPreview = document.getElementById('favicon-preview');
+        const fontItems = document.querySelectorAll('.font-item');
+        const useDefaultFont = document.getElementById('use-default-font');
+        const moduleCheckboxes = document.querySelectorAll('.module-checkbox');
+        const completeBtn = document.getElementById('complete-btn');
+        const configNameInput = document.getElementById('config-name');
+        const installSampleData = document.getElementById('install-sample-data');
+
+        // Summary Elements
+        const summaryConfigName = document.getElementById('summary-config-name');
+        const summaryPlatform = document.getElementById('summary-platform');
+        const summaryVersion = document.getElementById('summary-version');
+        const summaryTheme = document.getElementById('summary-theme');
+        const summaryFont = document.getElementById('summary-font');
+        const summaryLogo = document.getElementById('summary-logo');
+        const summaryFavicon = document.getElementById('summary-favicon');
+        const summarySampleData = document.getElementById('summary-sample-data');
+        const modulesSummary = document.getElementById('modules-summary');
+
+        // Current state
+        let currentStep = 1;
+        let selectedPlatform = null;
+        let selectedTheme = 'luma';
+        let selectedFont = 'Roboto';
+        let selectedModules = [];
+
+        // Initialize the wizard
+        function initWizard() {
+            // Show first step
+            showStep(currentStep);
+            
+            // Set up event listeners
+            setupEventListeners();
+        }
+
+        // Set up all event listeners
+        function setupEventListeners() {
+            // Next step buttons
+            nextButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const nextStep = parseInt(button.getAttribute('data-next'));
+                    if (validateStep(currentStep)) {
+                        currentStep = nextStep;
+                        updateProgress();
+                        showStep(currentStep);
+                    }
+                });
+            });
+
+            // Previous step buttons
+            prevButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const prevStep = parseInt(button.getAttribute('data-prev'));
+                    currentStep = prevStep;
+                    updateProgress();
+                    showStep(currentStep);
+                });
+            });
+
+            // Platform selection
+            platformOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    platformOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    selectedPlatform = option.getAttribute('data-platform');
+                    
+                    // Enable next button
+                    document.querySelector('.next-step[data-next="3"]').disabled = false;
+                    
+                    // Populate versions
+                    populateVersions(selectedPlatform);
+                    
+                    // Show version select
+                    platformVersionGroup.style.display = 'block';
+                });
+            });
+
+            // Platform version selection
+            platformVersionSelect.addEventListener('change', () => {
+                if (platformVersionSelect.value) {
+                    showDependencies(selectedPlatform, platformVersionSelect.value);
+                } else {
+                    dependenciesContainer.classList.remove('show');
+                }
+            });
+
+            // Theme selection
+            themeOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    themeOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    selectedTheme = option.getAttribute('data-theme');
+                });
+            });
+
+            // Color pickers
+            colorPickers.forEach((picker, index) => {
+                picker.addEventListener('input', () => {
+                    colorValues[index].textContent = picker.value;
+                });
+            });
+
+            // Preview button
+            previewBtn.addEventListener('click', () => {
+                previewModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            });
+
+            // Modal close
+            modalClose.addEventListener('click', () => {
+                previewModal.classList.remove('show');
+                document.body.style.overflow = '';
+            });
+
+            // Preview tabs
+            previewTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    previewTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    const tabId = tab.getAttribute('data-tab');
+                    previewContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === `${tabId}-preview`) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+
+            // Logo upload
+            logoUploadBtn.addEventListener('click', () => {
+                logoFileInput.click();
+            });
+
+            logoFileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    const file = e.target.files[0];
+                    const reader = new FileReader();
+                    
+                    reader.onload = (event) => {
+                        logoPreview.innerHTML = `<img src="${event.target.result}" alt="Logo Preview">`;
+                        logoPreview.style.display = 'block';
+                        summaryLogo.textContent = file.name;
+                    };
+                    
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Favicon upload
+            faviconUploadBtn.addEventListener('click', () => {
+                faviconFileInput.click();
+            });
+
+            faviconFileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    const file = e.target.files[0];
+                    const reader = new FileReader();
+                    
+                    reader.onload = (event) => {
+                        faviconPreview.innerHTML = `<img src="${event.target.result}" alt="Favicon Preview">`;
+                        faviconPreview.style.display = 'block';
+                        summaryFavicon.textContent = file.name;
+                    };
+                    
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Font selection
+            fontItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    if (!useDefaultFont.checked) {
+                        fontItems.forEach(font => font.classList.remove('selected'));
+                        item.classList.add('selected');
+                        selectedFont = item.getAttribute('data-font');
+                        summaryFont.textContent = selectedFont;
+                    }
+                });
+            });
+
+            // Use default font checkbox
+            useDefaultFont.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    fontItems.forEach(font => font.classList.remove('selected'));
+                    summaryFont.textContent = 'Default theme font';
+                } else {
+                    const selected = document.querySelector('.font-item.selected');
+                    if (selected) {
+                        selectedFont = selected.getAttribute('data-font');
+                        summaryFont.textContent = selectedFont;
+                    }
+                }
+            });
+
+            // Module selection
+            moduleCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', (e) => {
+                    const moduleName = checkbox.getAttribute('data-module');
+                    
+                    if (e.target.checked) {
+                        if (!selectedModules.includes(moduleName)) {
+                            selectedModules.push(moduleName);
+                        }
+                    } else {
+                        selectedModules = selectedModules.filter(m => m !== moduleName);
+                    }
+                    
+                    updateModulesSummary();
+                });
+            });
+
+            // Complete button
+            completeBtn.addEventListener('click', () => {
+                if (validateStep(currentStep)) {
+                    alert('Configuration submitted successfully!');
+                    // Here you would typically send the data to your backend
+                    console.log(getFormData());
+                }
+            });
+
+            // Configuration name input
+            configNameInput.addEventListener('input', () => {
+                summaryConfigName.textContent = configNameInput.value || 'My Awesome Store';
+            });
+
+            // Sample data checkbox
+            installSampleData.addEventListener('change', () => {
+                summarySampleData.textContent = installSampleData.checked ? 'Yes' : 'No';
+            });
+        }
+
+        // Show the current step and hide others
+        function showStep(step) {
+            steps.forEach(s => s.classList.remove('active'));
+            document.getElementById(`step-${step}`).classList.add('active');
+            
+            stepItems.forEach(item => {
+                const itemStep = parseInt(item.getAttribute('data-step'));
+                item.classList.remove('active', 'completed');
+                
+                if (itemStep === step) {
+                    item.classList.add('active');
+                } else if (itemStep < step) {
+                    item.classList.add('completed');
+                }
+            });
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const progress = (currentStep / 6) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        // Validate current step before proceeding
+        function validateStep(step) {
+            switch (step) {
+                case 1:
+                    if (!configNameInput.value.trim()) {
+                        alert('Please enter a configuration name');
+                        return false;
+                    }
+                    return true;
+                case 2:
+                    if (!selectedPlatform || !platformVersionSelect.value) {
+                        alert('Please select a platform and version');
+                        return false;
+                    }
+                    return true;
+                default:
+                    return true;
+            }
+        }
+
+        // Populate platform versions
+        function populateVersions(platform) {
+            platformVersionSelect.innerHTML = '<option value="">Select a version</option>';
+            
+            const versions = platformData[platform].versions;
+            for (const version in versions) {
+                const option = document.createElement('option');
+                option.value = version;
+                option.textContent = version;
+                platformVersionSelect.appendChild(option);
+            }
+        }
+
+        // Show dependencies for selected platform version
+        function showDependencies(platform, version) {
+            const dependencies = platformData[platform].versions[version];
+            dependenciesGrid.innerHTML = '';
+            
+            for (const dep in dependencies) {
+                const depItem = document.createElement('div');
+                depItem.className = 'dependency-item';
+                depItem.innerHTML = `
+                    <i>📦</i>
+                    <div>
+                        <strong>${dep}:</strong> ${dependencies[dep]}
+                    </div>
+                `;
+                dependenciesGrid.appendChild(depItem);
+            }
+            
+            dependenciesContainer.classList.add('show');
+            
+            // Update summary
+            summaryPlatform.textContent = platform.charAt(0).toUpperCase() + platform.slice(1);
+            summaryVersion.textContent = version;
+        }
+
+        // Update modules summary
+        function updateModulesSummary() {
+            modulesSummary.innerHTML = '';
+            
+            selectedModules.forEach(module => {
+                const tag = document.createElement('div');
+                tag.className = 'module-tag';
+                tag.textContent = module;
+                modulesSummary.appendChild(tag);
+            });
+        }
+
+        // Get all form data
+        function getFormData() {
+            return {
+                configName: configNameInput.value.trim(),
+                platform: selectedPlatform,
+                platformVersion: platformVersionSelect.value,
+                theme: selectedTheme,
+                colors: {
+                    primary: document.getElementById('primary-color').value,
+                    secondary: document.getElementById('secondary-color').value,
+                    tertiary: document.getElementById('tertiary-color').value
+                },
+                font: useDefaultFont.checked ? 'default' : selectedFont,
+                logo: logoFileInput.files.length > 0 ? logoFileInput.files[0].name : null,
+                favicon: faviconFileInput.files.length > 0 ? faviconFileInput.files[0].name : null,
+                modules: selectedModules,
+                sampleData: installSampleData.checked
+            };
+        }
+
+        // Initialize the wizard when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initWizard);
+    </script>
+</body>
+</html>
