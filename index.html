@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corefinity - Magento Store Configuration Wizard</title>
+    <title>Corefinity - Store Configuration Wizard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #3f51b5;
-            --secondary-color: #5c6bc0;
-            --tertiary-color: #1a237e;
-            --accent-color: #7986cb;
+            --primary-color: #009bde;
+            --secondary-color: #0078b4;
+            --tertiary-color: #005a8c;
+            --accent-color: #4fc3f7;
             --text-color: #333;
             --light-gray: #f5f5f5;
             --medium-gray: #e0e0e0;
@@ -221,7 +221,7 @@
         .form-control:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
+            box-shadow: 0 0 0 2px rgba(0, 160, 225, 0.2);
         }
 
         .platform-options {
@@ -248,7 +248,7 @@
 
         .platform-card.selected {
             border-color: var(--primary-color);
-            background-color: rgba(63, 81, 181, 0.05);
+            background-color: rgba(0, 160, 225, 0.05);
         }
 
         .platform-card img {
@@ -350,7 +350,7 @@
 
         .theme-card.selected {
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.2);
+            box-shadow: 0 0 0 3px rgba(0, 160, 225, 0.2);
         }
 
         .theme-card img {
@@ -488,7 +488,7 @@
         }
 
         .font-option.selected {
-            background-color: rgba(63, 81, 181, 0.1);
+            background-color: rgba(0, 160, 225, 0.1);
             color: var(--primary-color);
             font-weight: 500;
         }
@@ -526,7 +526,7 @@
 
         .module-card.selected {
             border-color: var(--primary-color);
-            background-color: rgba(63, 81, 181, 0.05);
+            background-color: rgba(0, 160, 225, 0.05);
         }
 
         .module-card h3 {
@@ -603,7 +603,7 @@
         }
 
         .btn-outline:hover {
-            background-color: rgba(63, 81, 181, 0.1);
+            background-color: rgba(0, 160, 225, 0.1);
         }
 
         .btn-disabled {
@@ -980,8 +980,8 @@
     <div class="container">
         <div class="sidebar">
             <div class="sidebar-header">
-                <img src="https://www.corefinity.com/images/logo.svg" alt="">
-                
+                <img src="https://www.corefinity.com/images/logo.svg" alt="Corefinity Logo">
+             
             </div>
             <div class="nav-menu">
                 <div class="nav-item active" data-step="intro">
@@ -1008,6 +1008,14 @@
                     <i class="material-icons">check_circle</i>
                     <span>Summary</span>
                 </div>
+                <div class="nav-item" data-step="profile">
+                    <i class="material-icons">person</i>
+                    <span>Profile</span>
+                </div>
+                <div class="nav-item" data-step="builds">
+                    <i class="material-icons">list_alt</i>
+                    <span>My Builds</span>
+                </div>
             </div>
             <a href="#" class="logout-btn">
                 <i class="material-icons">logout</i>
@@ -1016,7 +1024,7 @@
         </div>
         <div class="main-content">
             <div class="wizard-header">
-                <h2 class="wizard-title">Magento Store Configuration</h2>
+                <h2 class="wizard-title">Store Configuration</h2>
                 <div>
                     <button class="btn btn-outline">Save Progress</button>
                 </div>
@@ -1036,9 +1044,9 @@
             </div>
 
             <div class="wizard-step active" id="intro-step">
-                <h3 class="step-title">Welcome to Magento Store Configurator</h3>
+                <h3 class="step-title">Welcome to Store Configurator</h3>
                 <p class="step-description">
-                    This wizard will guide you through the process of configuring your Magento store. 
+                    This wizard will guide you through the process of configuring your store. 
                     Please provide a name for your configuration to get started.
                 </p>
                 <div class="form-group">
@@ -1059,15 +1067,15 @@
                         <h3>Magento</h3>
                         <p>Open-source eCommerce platform</p>
                     </div>
-                    <div class="platform-card" data-platform="shopify">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Shopify_logo_2018.svg/1200px-Shopify_logo_2018.svg.png" alt="Shopify Logo">
-                        <h3>Shopify</h3>
-                        <p>Cloud-based eCommerce platform</p>
+                    <div class="platform-card" data-platform="wordpress">
+                        <img src="https://toppng.com/uploads/preview/woocommerce-logo-11609383002t2vrfxk1rt.png" alt="WordPress Logo">
+                        <h3>WordPress</h3>
+                        <p>Popular CMS with WooCommerce</p>
                     </div>
-                    <div class="platform-card" data-platform="woocommerce">
-                        <img src="https://toppng.com/uploads/preview/woocommerce-logo-11609383002t2vrfxk1rt.png" alt="">
-                        <h3>WooCommerce</h3>
-                        <p>WordPress eCommerce plugin</p>
+                    <div class="platform-card" data-platform="laravel">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Laravel.svg/1200px-Laravel.svg.png" alt="Laravel Logo">
+                        <h3>Laravel</h3>
+                        <p>PHP framework for web artisans</p>
                     </div>
                 </div>
                 <div class="version-select" id="version-select">
@@ -1197,15 +1205,15 @@
                         <div class="color-picker-group">
                             <div class="color-picker">
                                 <label class="color-picker-label">Primary</label>
-                                <input type="color" id="primary-color" value="#3f51b5">
+                                <input type="color" id="primary-color" value="#00a0e1">
                             </div>
                             <div class="color-picker">
                                 <label class="color-picker-label">Secondary</label>
-                                <input type="color" id="secondary-color" value="#5c6bc0">
+                                <input type="color" id="secondary-color" value="#0078b4">
                             </div>
                             <div class="color-picker">
                                 <label class="color-picker-label">Accent</label>
-                                <input type="color" id="tertiary-color" value="#1a237e">
+                                <input type="color" id="tertiary-color" value="#005a8c">
                             </div>
                         </div>
                         <button class="btn btn-outline" id="preview-colors-btn">Preview Colors</button>
@@ -1346,9 +1354,9 @@
                         <div class="summary-item">
                             <strong>Color Scheme</strong>
                             <div class="summary-colors">
-                                <div class="summary-color" style="background-color: #3f51b5;"></div>
-                                <div class="summary-color" style="background-color: #5c6bc0;"></div>
-                                <div class="summary-color" style="background-color: #1a237e;"></div>
+                                <div class="summary-color" style="background-color: #00a0e1;"></div>
+                                <div class="summary-color" style="background-color: #0078b4;"></div>
+                                <div class="summary-color" style="background-color: #005a8c;"></div>
                             </div>
                         </div>
                     </div>
@@ -1380,6 +1388,71 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="wizard-step" id="profile-step">
+                <h3 class="step-title">Profile Settings</h3>
+                <p class="step-description">
+                    Update your profile information.
+                </p>
+                <div class="form-group">
+                    <label for="profile-name" class="form-label">Full Name</label>
+                    <input type="text" id="profile-name" class="form-control" placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="profile-email" class="form-label">Email Address</label>
+                    <input type="email" id="profile-email" class="form-control" placeholder="Enter your email">
+                </div>
+                <button class="btn btn-primary">Update Profile</button>
+            </div>
+
+            <div class="wizard-step" id="builds-step">
+                <h3 class="step-title">My Builds</h3>
+                <p class="step-description">
+                    View and manage your previous builds.
+                </p>
+                <div style="background-color: var(--white); border-radius: var(--border-radius); box-shadow: var(--shadow-sm); overflow: hidden;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background-color: var(--light-gray);">
+                                <th style="padding: 1rem; text-align: left;">Build Name</th>
+                                <th style="padding: 1rem; text-align: left;">Platform</th>
+                                <th style="padding: 1rem; text-align: left;">Date</th>
+                                <th style="padding: 1rem; text-align: left;">Status</th>
+                                <th style="padding: 1rem; text-align: left;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid var(--medium-gray);">
+                                <td style="padding: 1rem;">E-commerce Store</td>
+                                <td style="padding: 1rem;">Magento</td>
+                                <td style="padding: 1rem;">2023-10-15</td>
+                                <td style="padding: 1rem;"><span style="color: var(--success-color);">Completed</span></td>
+                                <td style="padding: 1rem;">
+                                    <button class="btn btn-outline" style="padding: 0.5rem;">View</button>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--medium-gray);">
+                                <td style="padding: 1rem;">Blog Site</td>
+                                <td style="padding: 1rem;">WordPress</td>
+                                <td style="padding: 1rem;">2023-09-28</td>
+                                <td style="padding: 1rem;"><span style="color: var(--success-color);">Completed</span></td>
+                                <td style="padding: 1rem;">
+                                    <button class="btn btn-outline" style="padding: 0.5rem;">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 1rem;">Business Portal</td>
+                                <td style="padding: 1rem;">Laravel</td>
+                                <td style="padding: 1rem;">2023-11-02</td>
+                                <td style="padding: 1rem;"><span style="color: var(--primary-color);">In Progress</span></td>
+                                <td style="padding: 1rem;">
+                                    <button class="btn btn-outline" style="padding: 0.5rem;">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -1502,44 +1575,92 @@
                         mariadb: '10.4',
                         redis: '6.2',
                         opensearch: '2.6'
+                    },
+                    '2.4.4': {
+                        php: '8.0',
+                        mariadb: '10.4',
+                        redis: '6.0',
+                        opensearch: '2.4'
+                    },
+                    '2.3.7': {
+                        php: '7.4',
+                        mariadb: '10.3',
+                        redis: '5.0',
+                        opensearch: 'N/A'
                     }
                 }
             },
-            shopify: {
+            laravel: {
                 versions: {
-                    '2024.1': {
-                        php: 'N/A',
-                        mariadb: 'N/A',
-                        redis: 'N/A',
+                    '11': {
+                        php: '8.2',
+                        mariadb: '10.6',
+                        redis: '7.2',
                         opensearch: 'N/A'
                     },
-                    '2023.4': {
-                        php: 'N/A',
-                        mariadb: 'N/A',
-                        redis: 'N/A',
+                    '10': {
+                        php: '8.1',
+                        mariadb: '10.4',
+                        redis: '6.2',
                         opensearch: 'N/A'
-                    }
-                }
-            },
-            woocommerce: {
-                versions: {
-                    '8.5': {
-                        php: '7.4',
+                    },
+                    '9': {
+                        php: '8.0',
                         mariadb: '10.3',
                         redis: '6.0',
                         opensearch: 'N/A'
                     },
-                    '8.4': {
+                    '8': {
+                        php: '7.4',
+                        mariadb: '10.3',
+                        redis: '5.0',
+                        opensearch: 'N/A'
+                    },
+                    '7': {
                         php: '7.3',
                         mariadb: '10.2',
                         redis: '5.0',
                         opensearch: 'N/A'
                     }
                 }
+            },
+            wordpress: {
+                versions: {
+                    '6.5': {
+                        php: '8.1',
+                        mariadb: '10.4',
+                        redis: '7.0',
+                        opensearch: 'N/A'
+                    },
+                    '6.4': {
+                        php: '8.0',
+                        mariadb: '10.3',
+                        redis: '6.0',
+                        opensearch: 'N/A'
+                    },
+                    '6.3': {
+                        php: '7.4',
+                        mariadb: '10.2',
+                        redis: '5.0',
+                        opensearch: 'N/A'
+                    },
+                    '6.2': {
+                        php: '7.3',
+                        mariadb: '10.1',
+                        redis: '5.0',
+                        opensearch: 'N/A'
+                    },
+                    '5.9': {
+                        php: '7.2',
+                        mariadb: '10.0',
+                        redis: '4.0',
+                        opensearch: 'N/A'
+                    }
+                }
             }
         };
 
-        const steps = ['intro', 'platform', 'modules', 'styles', 'sample-data', 'summary'];
+        const steps = ['intro', 'platform', 'modules', 'styles', 'sample-data', 'summary', 'profile', 'builds'];
         let currentStep = 0;
         let selectedPlatform = null;
         let selectedVersion = null;
@@ -1586,7 +1707,7 @@
         const navItems = document.querySelectorAll('.nav-item');
 
         function updateProgress() {
-            const progress = ((currentStep + 1) / steps.length) * 100;
+            const progress = ((currentStep + 1) / (steps.length - 2)) * 100;
             progressBar.style.width = `${progress}%`;
         }
 
@@ -1606,7 +1727,7 @@
             
             prevBtn.disabled = stepIndex === 0;
             
-            if (stepIndex === steps.length - 1) {
+            if (stepIndex === steps.length - 3) {
                 nextBtn.textContent = 'Build and Deploy Site';
                 updateSummary();
             } else {
@@ -1637,7 +1758,7 @@
         nextBtn.addEventListener('click', () => {
             if (!validateStep(currentStep)) return;
             
-            if (currentStep < steps.length - 1) {
+            if (currentStep < steps.length - 3) {
                 currentStep++;
                 showStep(currentStep);
             } else {
@@ -1703,8 +1824,8 @@
         });
 
         previewThemeBtn.addEventListener('click', () => {
-            document.documentElement.style.setProperty('--preview-primary', '#3f51b5');
-            document.documentElement.style.setProperty('--preview-secondary', '#5c6bc0');
+            document.documentElement.style.setProperty('--preview-primary', '#00a0e1');
+            document.documentElement.style.setProperty('--preview-secondary', '#0078b4');
             document.documentElement.style.setProperty('--preview-tertiary', '#ffffff');
             document.documentElement.style.setProperty('--preview-font', 'Inter');
             
@@ -1885,6 +2006,17 @@
             document.querySelector('.summary-color:nth-child(2)').style.backgroundColor = secondaryColor.value;
             document.querySelector('.summary-color:nth-child(3)').style.backgroundColor = tertiaryColor.value;
         }
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const step = item.dataset.step;
+                const stepIndex = steps.indexOf(step);
+                if (stepIndex !== -1) {
+                    currentStep = stepIndex;
+                    showStep(currentStep);
+                }
+            });
+        });
 
         showStep(0);
     </script>
