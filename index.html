@@ -4,145 +4,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Corefinity - Magento Store Configuration Wizard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #4a6bff;
-            --secondary-color: #2d3748;
-            --tertiary-color: #4a5568;
-            --light-bg: #f7fafc;
+            --primary-color: #3f51b5;
+            --secondary-color: #5c6bc0;
+            --tertiary-color: #1a237e;
+            --accent-color: #7986cb;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #757575;
             --white: #ffffff;
-            --border-color: #e2e8f0;
-            --success-color: #48bb78;
-            --warning-color: #ed8936;
-            --error-color: #f56565;
-            --sidebar-width: 280px;
+            --error-color: #d32f2f;
+            --success-color: #388e3c;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            display: flex;
-            min-height: 100vh;
-            background-color: var(--light-bg);
-            color: var(--secondary-color);
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            line-height: 1.6;
         }
 
-        /* Sidebar Styles */
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
         .sidebar {
-            width: var(--sidebar-width);
-            background-color: var(--white);
-            border-right: 1px solid var(--border-color);
+            width: 280px;
+            background-color: var(--secondary-color);
+            color: var(--white);
             padding: 2rem 1rem;
             display: flex;
             flex-direction: column;
-            height: 100vh;
-            position: fixed;
+            box-shadow: var(--shadow-sm);
         }
 
-        .logo {
+        .sidebar-header {
             display: flex;
             align-items: center;
             margin-bottom: 2rem;
-            padding: 0 1rem;
+            padding: 0 0.5rem;
         }
 
-        .logo img {
+        .sidebar-header img {
             height: 40px;
-            margin-right: 0.75rem;
+            margin-right: 10px;
+            filter: brightness(0) invert(1);
         }
 
-        .logo h1 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--secondary-color);
-        }
-
-        .nav-steps {
-            flex-grow: 1;
-        }
-
-        .step-item {
-            margin-bottom: 0.5rem;
-            border-radius: 0.375rem;
-            transition: all 0.2s ease;
-        }
-
-        .step-item a {
-            display: flex;
-            align-items: center;
-            padding: 0.75rem 1rem;
-            text-decoration: none;
-            color: var(--tertiary-color);
-            font-weight: 500;
-        }
-
-        .step-item.active {
-            background-color: rgba(74, 107, 255, 0.1);
-        }
-
-        .step-item.active a {
-            color: var(--primary-color);
-        }
-
-        .step-item.completed a {
-            color: var(--secondary-color);
-        }
-
-        .step-item .step-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background-color: var(--border-color);
-            margin-right: 0.75rem;
-            color: var(--tertiary-color);
-            font-size: 0.75rem;
+        .sidebar-header h1 {
+            font-size: 1.5rem;
             font-weight: 600;
         }
 
-        .step-item.active .step-icon {
-            background-color: var(--primary-color);
-            color: var(--white);
+        .nav-menu {
+            flex-grow: 1;
         }
 
-        .step-item.completed .step-icon {
-            background-color: var(--success-color);
-            color: var(--white);
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .nav-item.active {
+            background-color: var(--primary-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-item:hover:not(.active) {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-item i {
+            margin-right: 10px;
+            font-size: 1.25rem;
         }
 
         .logout-btn {
-            margin-top: auto;
-            padding: 0.75rem 1rem;
             display: flex;
             align-items: center;
-            color: var(--error-color);
-            font-weight: 500;
+            padding: 0.75rem 1rem;
+            margin-top: auto;
             cursor: pointer;
-            border-radius: 0.375rem;
-            transition: background-color 0.2s ease;
+            color: var(--white);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
         }
 
         .logout-btn:hover {
-            background-color: rgba(245, 101, 101, 0.1);
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         .logout-btn i {
-            margin-right: 0.75rem;
+            margin-right: 10px;
         }
 
-        /* Main Content Styles */
         .main-content {
             flex-grow: 1;
-            margin-left: var(--sidebar-width);
             padding: 2rem;
-            min-height: 100vh;
+            overflow-y: auto;
         }
 
         .wizard-header {
@@ -152,51 +133,70 @@
             margin-bottom: 2rem;
         }
 
-        .wizard-header h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
+        .wizard-title {
+            font-size: 1.75rem;
+            font-weight: 600;
             color: var(--secondary-color);
         }
 
         .progress-container {
-            width: 100%;
-            background-color: var(--border-color);
-            border-radius: 0.5rem;
-            height: 8px;
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
             margin-bottom: 2rem;
-            overflow: hidden;
         }
 
         .progress-bar {
-            height: 100%;
-            background-color: var(--primary-color);
-            border-radius: 0.5rem;
-            transition: width 0.3s ease;
+            height: 8px;
+            background-color: var(--medium-gray);
+            border-radius: 4px;
+            overflow: hidden;
         }
 
-        /* Wizard Step Styles */
+        .progress {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 25%;
+            transition: width 0.3s;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--dark-gray);
+        }
+
         .wizard-step {
             display: none;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.5s;
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
         }
 
         .wizard-step.active {
             display: block;
         }
 
-        .step-card {
-            background-color: var(--white);
-            border-radius: 0.5rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            margin-bottom: 2rem;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .step-title {
-            font-size: 1.25rem;
-            font-weight: 600;
+            font-size: 1.5rem;
             margin-bottom: 1.5rem;
             color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        .step-description {
+            margin-bottom: 2rem;
+            color: var(--dark-gray);
         }
 
         .form-group {
@@ -207,426 +207,450 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 500;
-            color: var(--tertiary-color);
         }
 
         .form-control {
             width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--border-color);
-            border-radius: 0.375rem;
+            padding: 0.75rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
             font-size: 1rem;
-            transition: border-color 0.2s ease;
+            transition: var(--transition);
         }
 
         .form-control:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.2);
+            box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
         }
 
-        .form-text {
-            font-size: 0.875rem;
-            color: var(--tertiary-color);
-            margin-top: 0.5rem;
-        }
-
-        /* Platform Selection Styles */
         .platform-options {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
 
-        .platform-option {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .platform-card {
             padding: 1.5rem;
-            border: 1px solid var(--border-color);
-            border-radius: 0.5rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
+            text-align: center;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: var(--transition);
+            background-color: var(--white);
         }
 
-        .platform-option:hover {
+        .platform-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .platform-card.selected {
             border-color: var(--primary-color);
+            background-color: rgba(63, 81, 181, 0.05);
         }
 
-        .platform-option.selected {
-            border-color: var(--primary-color);
-            background-color: rgba(74, 107, 255, 0.05);
-        }
-
-        .platform-option img {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
+        .platform-card img {
+            height: 60px;
             margin-bottom: 1rem;
+            object-fit: contain;
         }
 
-        .platform-option h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--secondary-color);
+        .platform-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
         }
 
-        /* Dependencies Styles */
-        .dependencies-container {
+        .version-select {
+            margin-bottom: 2rem;
             display: none;
-            margin-top: 2rem;
-            animation: fadeIn 0.3s ease;
         }
 
-        .dependencies-container.show {
+        .version-select.active {
             display: block;
         }
 
-        .dependencies-grid {
+        .dependencies {
+            background-color: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .dependencies.active {
+            display: block;
+        }
+
+        .dependencies h4 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .dependency-list {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 1rem;
         }
 
         .dependency-item {
-            background-color: var(--light-bg);
-            padding: 1rem;
-            border-radius: 0.375rem;
+            background-color: var(--white);
+            padding: 0.75rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .dependency-item span:first-child {
+            font-weight: 500;
+            color: var(--secondary-color);
+        }
+
+        .styles-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .styles-section {
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .styles-section-title {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+            font-weight: 600;
             display: flex;
             align-items: center;
         }
 
-        .dependency-item i {
-            margin-right: 0.75rem;
-            color: var(--primary-color);
+        .styles-section-title i {
+            margin-right: 0.5rem;
         }
 
-        /* Theme Selection Styles */
         .theme-options {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
 
-        .theme-option {
-            border: 1px solid var(--border-color);
-            border-radius: 0.5rem;
+        .theme-card {
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
             overflow: hidden;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: var(--transition);
+            background-color: var(--white);
         }
 
-        .theme-option:hover {
+        .theme-card.selected {
             border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.2);
         }
 
-        .theme-option.selected {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.2);
-        }
-
-        .theme-preview {
-            height: 180px;
+        .theme-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
             background-color: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--tertiary-color);
-            font-weight: 500;
         }
 
-        .theme-info {
-            padding: 1rem;
-            border-top: 1px solid var(--border-color);
+        .theme-card-body {
+            padding: 1.25rem;
         }
 
-        .theme-info h3 {
-            font-size: 1rem;
-            font-weight: 600;
+        .theme-card h3 {
+            font-size: 1.1rem;
             margin-bottom: 0.5rem;
-            color: var(--secondary-color);
         }
 
-        .theme-info p {
+        .theme-card p {
+            color: var(--dark-gray);
             font-size: 0.875rem;
-            color: var(--tertiary-color);
         }
 
-        /* Color Picker Styles */
         .color-picker-group {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .color-picker-label {
-            width: 120px;
-            font-weight: 500;
-            color: var(--tertiary-color);
-        }
-
-        .color-picker {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid var(--border-color);
-            cursor: pointer;
-            margin-right: 1rem;
-        }
-
-        .color-value {
-            font-family: monospace;
-            color: var(--tertiary-color);
-        }
-
-        /* Image Upload Styles */
-        .image-upload-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .image-upload-box {
-            border: 1px dashed var(--border-color);
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            text-align: center;
-            transition: all 0.2s ease;
-        }
-
-        .image-upload-box:hover {
-            border-color: var(--primary-color);
-        }
-
-        .image-upload-box .upload-icon {
-            font-size: 2rem;
-            color: var(--tertiary-color);
-            margin-bottom: 1rem;
-        }
-
-        .image-upload-box h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--secondary-color);
-        }
-
-        .image-upload-box p {
-            font-size: 0.875rem;
-            color: var(--tertiary-color);
-            margin-bottom: 1rem;
-        }
-
-        .upload-btn {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background-color: var(--primary-color);
-            color: var(--white);
-            border-radius: 0.375rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-
-        .upload-btn:hover {
-            background-color: #3a5bed;
-        }
-
-        .image-preview {
-            margin-top: 1rem;
-            display: none;
-        }
-
-        .image-preview img {
-            max-width: 100%;
-            max-height: 120px;
-            border-radius: 0.25rem;
-        }
-
-        /* Font Selection Styles */
-        .font-options {
             margin-bottom: 1.5rem;
         }
 
-        .font-search-container {
+        .color-picker {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .color-picker-label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        input[type="color"] {
+            width: 60px;
+            height: 60px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .image-upload {
+            margin-bottom: 1.5rem;
+        }
+
+        .image-upload-preview {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .upload-container {
+            width: 150px;
+            height: 150px;
+            border: 2px dashed var(--medium-gray);
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
             position: relative;
-            margin-bottom: 1rem;
+            overflow: hidden;
+            background-color: var(--light-gray);
+        }
+
+        .upload-container:hover {
+            border-color: var(--primary-color);
+        }
+
+        .upload-container i {
+            font-size: 2rem;
+            color: var(--dark-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-container input[type="file"] {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .preview-image {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            border-radius: var(--border-radius);
+            display: none;
+            background-color: var(--light-gray);
+        }
+
+        .font-selector {
+            margin-bottom: 1.5rem;
         }
 
         .font-search {
             width: 100%;
-            padding: 0.75rem 1rem 0.75rem 2.5rem;
-            border: 1px solid var(--border-color);
-            border-radius: 0.375rem;
-            font-size: 1rem;
+            padding: 0.75rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
         }
 
-        .font-search-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--tertiary-color);
-        }
-
-        .font-list {
+        .font-options {
             max-height: 200px;
             overflow-y: auto;
-            border: 1px solid var(--border-color);
-            border-radius: 0.375rem;
-        }
-
-        .font-item {
-            padding: 0.75rem 1rem;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-
-        .font-item:hover {
-            background-color: var(--light-bg);
-        }
-
-        .font-item.selected {
-            background-color: rgba(74, 107, 255, 0.1);
-            color: var(--primary-color);
-        }
-
-        .use-default-font {
-            display: flex;
-            align-items: center;
-            margin-top: 1rem;
-        }
-
-        .use-default-font input {
-            margin-right: 0.5rem;
-        }
-
-        /* Modules Selection Styles */
-        .modules-container {
-            margin-bottom: 2rem;
-        }
-
-        .module-category {
-            margin-bottom: 2rem;
-        }
-
-        .category-title {
-            font-size: 1.125rem;
-            font-weight: 600;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
+            padding: 0.5rem;
             margin-bottom: 1rem;
-            color: var(--secondary-color);
-            display: flex;
-            align-items: center;
         }
 
-        .category-title i {
-            margin-right: 0.5rem;
+        .font-option {
+            padding: 0.75rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 4px;
+        }
+
+        .font-option:hover {
+            background-color: var(--light-gray);
+        }
+
+        .font-option.selected {
+            background-color: rgba(63, 81, 181, 0.1);
             color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .checkbox-group input {
+            margin-right: 0.5rem;
         }
 
         .module-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .module-card {
-            border: 1px solid var(--border-color);
-            border-radius: 0.5rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
             padding: 1.5rem;
-            transition: all 0.2s ease;
+            transition: var(--transition);
             cursor: pointer;
+            background-color: var(--white);
         }
 
         .module-card:hover {
-            border-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
         }
 
         .module-card.selected {
             border-color: var(--primary-color);
-            background-color: rgba(74, 107, 255, 0.05);
+            background-color: rgba(63, 81, 181, 0.05);
         }
 
-        .module-header {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
-        .module-checkbox {
-            margin-right: 0.75rem;
-            margin-top: 0.25rem;
-        }
-
-        .module-info {
-            flex-grow: 1;
-        }
-
-        .module-title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-            color: var(--secondary-color);
-        }
-
-        .module-description {
-            font-size: 0.875rem;
-            color: var(--tertiary-color);
+        .module-card h3 {
+            font-size: 1.1rem;
             margin-bottom: 0.5rem;
-        }
-
-        .module-license {
-            font-size: 0.75rem;
-            color: var(--warning-color);
-            font-weight: 500;
-        }
-
-        /* Preview Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal.show {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background-color: var(--white);
-            border-radius: 0.5rem;
-            width: 90%;
-            max-width: 900px;
-            max-height: 90vh;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            animation: modalFadeIn 0.3s ease;
-        }
-
-        .modal-header {
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .modal-title {
+        .module-card p {
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .module-license {
+            display: none;
+            margin-top: 1rem;
+        }
+
+        .module-card.selected .module-license {
+            display: block;
+        }
+
+        .license-input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+        }
+
+        .wizard-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--medium-gray);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn i {
             font-size: 1.25rem;
-            font-weight: 600;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(63, 81, 181, 0.1);
+        }
+
+        .btn-disabled {
+            background-color: var(--medium-gray);
+            color: var(--dark-gray);
+            cursor: not-allowed;
+        }
+
+        .preview-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .preview-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--medium-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-size: 1.25rem;
             color: var(--secondary-color);
         }
 
@@ -635,1052 +659,829 @@
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
-            color: var(--tertiary-color);
+            color: var(--dark-gray);
+        }
+
+        .modal-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .modal-tab {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+        }
+
+        .modal-tab.active {
+            border-bottom-color: var(--primary-color);
+            color: var(--primary-color);
+            font-weight: 500;
         }
 
         .modal-body {
+            flex-grow: 1;
             padding: 1.5rem;
             overflow-y: auto;
-            max-height: calc(90vh - 120px);
         }
 
-        .preview-tabs {
-            display: flex;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 1.5rem;
-        }
-
-        .preview-tab {
-            padding: 0.75rem 1.5rem;
-            cursor: pointer;
-            font-weight: 500;
-            color: var(--tertiary-color);
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s ease;
-        }
-
-        .preview-tab.active {
-            color: var(--primary-color);
-            border-bottom-color: var(--primary-color);
-        }
-
-        .preview-content {
+        .preview-desktop, .preview-mobile {
             display: none;
         }
 
-        .preview-content.active {
+        .preview-desktop.active, .preview-mobile.active {
             display: block;
         }
 
-        .desktop-preview {
-            border: 1px solid var(--border-color);
-            border-radius: 0.5rem;
-            overflow: hidden;
-        }
-
-        .desktop-header {
-            background-color: var(--secondary-color);
-            padding: 0.5rem 1rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .desktop-header-buttons {
-            display: flex;
-            margin-right: 1rem;
-        }
-
-        .desktop-header-btn {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-right: 0.5rem;
-        }
-
-        .desktop-header-btn.red {
-            background-color: #ff5f56;
-        }
-
-        .desktop-header-btn.yellow {
-            background-color: #ffbd2e;
-        }
-
-        .desktop-header-btn.green {
-            background-color: #27c93f;
-        }
-
-        .desktop-navbar {
-            background-color: var(--secondary-color);
+        .preview-nav {
+            background-color: var(--preview-secondary);
             padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            color: var(--preview-tertiary);
         }
 
-        .desktop-logo {
-            height: 30px;
+        .preview-logo {
+            height: 40px;
         }
 
-        .desktop-nav-links {
-            display: flex;
-        }
-
-        .desktop-nav-link {
-            color: var(--white);
-            margin-left: 1.5rem;
+        .preview-nav-links a {
+            color: var(--preview-tertiary);
             text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
         }
 
-        .desktop-hero {
-            height: 300px;
-            background-color: var(--light-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--tertiary-color);
-            font-size: 1.5rem;
-            font-weight: 600;
+        .preview-hero {
+            background-color: var(--preview-primary);
+            padding: 3rem 1rem;
+            text-align: center;
+            color: var(--white);
         }
 
-        .desktop-products {
-            padding: 2rem;
+        .preview-hero h2 {
+            font-family: var(--preview-font);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .preview-btn {
+            background-color: var(--white);
+            color: var(--preview-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .preview-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .preview-products {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+
+        .preview-product {
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .preview-product:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .preview-product img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .preview-product-info {
+            padding: 1rem;
+        }
+
+        .preview-product h4 {
+            font-family: var(--preview-font);
+            margin-bottom: 0.5rem;
+        }
+
+        .preview-product p {
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+        }
+
+        .preview-product .preview-btn {
+            background-color: var(--preview-primary);
+            color: var(--white);
+            width: 100%;
+            text-align: center;
+        }
+
+        .preview-mobile {
+            max-width: 375px;
+            margin: 0 auto;
+            border: 1px solid var(--medium-gray);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .preview-mobile-header {
+            background-color: var(--preview-secondary);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--preview-tertiary);
+        }
+
+        .preview-mobile-nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 0.75rem;
+            background-color: var(--preview-secondary);
+            color: var(--preview-tertiary);
+        }
+
+        .preview-mobile-nav i {
+            font-size: 1.5rem;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.5rem;
         }
 
-        .desktop-product {
-            border: 1px solid var(--border-color);
-            border-radius: 0.375rem;
-            padding: 1rem;
+        .summary-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
         }
 
-        .desktop-product-image {
-            height: 120px;
-            background-color: #f0f0f0;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--tertiary-color);
-        }
-
-        .desktop-product-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .desktop-product-price {
-            color: var(--primary-color);
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .desktop-product-btn {
-            display: block;
-            width: 100%;
-            padding: 0.5rem;
-            background-color: var(--primary-color);
-            color: var(--white);
-            border: none;
-            border-radius: 0.25rem;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        .mobile-preview {
-            width: 320px;
-            margin: 0 auto;
-            border: 1px solid var(--border-color);
-            border-radius: 1rem;
-            overflow: hidden;
-        }
-
-        .mobile-status-bar {
-            background-color: var(--secondary-color);
-            padding: 0.5rem;
-            display: flex;
-            justify-content: space-between;
-            color: var(--white);
-            font-size: 0.75rem;
-        }
-
-        .mobile-navbar {
-            background-color: var(--secondary-color);
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .mobile-logo {
-            height: 24px;
-        }
-
-        .mobile-menu-btn {
-            color: var(--white);
-            font-size: 1.25rem;
-        }
-
-        .mobile-hero {
-            height: 180px;
-            background-color: var(--light-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--tertiary-color);
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-
-        .mobile-products {
-            padding: 1rem;
-        }
-
-        .mobile-product {
-            border: 1px solid var(--border-color);
-            border-radius: 0.375rem;
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .mobile-product-image {
-            height: 100px;
-            background-color: #f0f0f0;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--tertiary-color);
-        }
-
-        .mobile-product-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .mobile-product-price {
-            color: var(--primary-color);
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .mobile-product-btn {
-            display: block;
-            width: 100%;
-            padding: 0.5rem;
-            background-color: var(--primary-color);
-            color: var(--white);
-            border: none;
-            border-radius: 0.25rem;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        /* Navigation Buttons */
-        .wizard-nav {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 2rem;
-        }
-
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.375rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: none;
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: var(--white);
-        }
-
-        .btn-primary:hover {
-            background-color: #3a5bed;
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--tertiary-color);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-        }
-
-        .btn-disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* Summary Styles */
-        .summary-section {
-            margin-bottom: 2rem;
-        }
-
-        .summary-title {
-            font-size: 1.125rem;
-            font-weight: 600;
+        .summary-card h4 {
+            font-size: 1.1rem;
             margin-bottom: 1rem;
             color: var(--secondary-color);
             display: flex;
             align-items: center;
         }
 
-        .summary-title i {
+        .summary-card h4 i {
             margin-right: 0.5rem;
-            color: var(--primary-color);
-        }
-
-        .summary-content {
-            background-color: var(--light-bg);
-            border-radius: 0.5rem;
-            padding: 1.5rem;
         }
 
         .summary-item {
             margin-bottom: 0.75rem;
             display: flex;
+            flex-direction: column;
         }
 
-        .summary-label {
-            font-weight: 500;
-            color: var(--tertiary-color);
-            width: 160px;
-        }
-
-        .summary-value {
-            flex-grow: 1;
-        }
-
-        .modules-summary {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .module-tag {
-            background-color: var(--white);
-            border: 1px solid var(--border-color);
-            border-radius: 1rem;
-            padding: 0.25rem 0.75rem;
+        .summary-item strong {
+            margin-bottom: 0.25rem;
             font-size: 0.875rem;
+            color: var(--dark-gray);
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .summary-colors {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
         }
 
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .summary-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            box-shadow: var(--shadow-sm);
         }
 
-        /* Responsive Styles */
-        @media (max-width: 1024px) {
-            .platform-options {
-                grid-template-columns: repeat(2, 1fr);
+        .summary-images {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .summary-image {
+            width: 80px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 4px;
+            background-color: var(--light-gray);
+            padding: 0.25rem;
+        }
+
+        .summary-font-sample {
+            font-size: 1.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .validation-error {
+            color: var(--error-color);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .validation-error.active {
+            display: block;
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
             }
-            
+
+            .sidebar {
+                width: 100%;
+                padding: 1rem;
+            }
+
+            .sidebar-header {
+                margin-bottom: 1rem;
+            }
+
+            .nav-menu {
+                display: flex;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+            }
+
+            .nav-item {
+                white-space: nowrap;
+                margin-right: 0.5rem;
+                margin-bottom: 0;
+            }
+
+            .logout-btn {
+                display: none;
+            }
+
+            .main-content {
+                padding: 1.5rem;
+            }
+
+            .platform-options {
+                grid-template-columns: 1fr;
+            }
+
+            .styles-grid {
+                grid-template-columns: 1fr;
+            }
+
             .theme-options {
                 grid-template-columns: 1fr;
             }
-            
-            .dependencies-grid {
+
+            .module-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-products {
                 grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 768px) {
-            body {
+            .wizard-header {
                 flex-direction: column;
+                align-items: flex-start;
             }
-            
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                padding: 1rem;
-                border-right: none;
-                border-bottom: 1px solid var(--border-color);
-            }
-            
-            .main-content {
-                margin-left: 0;
-                padding: 1.5rem;
-            }
-            
-            .platform-options {
-                grid-template-columns: 1fr;
-            }
-            
-            .image-upload-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .module-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .modal-content {
-                width: 95%;
-            }
-        }
 
-        @media (max-width: 480px) {
-            .wizard-nav {
+            .wizard-title {
+                margin-bottom: 1rem;
+            }
+
+            .wizard-footer {
                 flex-direction: column-reverse;
                 gap: 1rem;
             }
-            
-            .wizard-nav .btn {
+
+            .btn {
                 width: 100%;
-            }
-            
-            .summary-item {
-                flex-direction: column;
-            }
-            
-            .summary-label {
-                width: 100%;
-                margin-bottom: 0.25rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Sidebar Navigation -->
-    <div class="sidebar">
-        <div class="logo">
-            <img src="https://www.corefinity.com/images/logo.svg" alt="Corefinity Logo">
-         
-        </div>
-        
-        <div class="nav-steps">
-            <div class="step-item active" data-step="1">
-                <a href="#">
-                    <span class="step-icon">1</span>
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <img src="https://www.corefinity.com/images/logo.svg" alt="">
+                
+            </div>
+            <div class="nav-menu">
+                <div class="nav-item active" data-step="intro">
+                    <i class="material-icons">home</i>
                     <span>Introduction</span>
-                </a>
-            </div>
-            <div class="step-item" data-step="2">
-                <a href="#">
-                    <span class="step-icon">2</span>
+                </div>
+                <div class="nav-item" data-step="platform">
+                    <i class="material-icons">dns</i>
                     <span>Platform</span>
-                </a>
-            </div>
-            <div class="step-item" data-step="3">
-                <a href="#">
-                    <span class="step-icon">3</span>
+                </div>
+                <div class="nav-item" data-step="modules">
+                    <i class="material-icons">extension</i>
                     <span>Modules</span>
-                </a>
-            </div>
-            <div class="step-item" data-step="4">
-                <a href="#">
-                    <span class="step-icon">4</span>
+                </div>
+                <div class="nav-item" data-step="styles">
+                    <i class="material-icons">palette</i>
                     <span>Styles</span>
-                </a>
-            </div>
-            <div class="step-item" data-step="5">
-                <a href="#">
-                    <span class="step-icon">5</span>
+                </div>
+                <div class="nav-item" data-step="sample-data">
+                    <i class="material-icons">data_object</i>
                     <span>Sample Data</span>
-                </a>
-            </div>
-            <div class="step-item" data-step="6">
-                <a href="#">
-                    <span class="step-icon">6</span>
+                </div>
+                <div class="nav-item" data-step="summary">
+                    <i class="material-icons">check_circle</i>
                     <span>Summary</span>
-                </a>
+                </div>
             </div>
+            <a href="#" class="logout-btn">
+                <i class="material-icons">logout</i>
+                <span>Logout</span>
+            </a>
         </div>
-        
-        <div class="logout-btn">
-            <i>🔒</i>
-            <span>Logout</span>
-        </div>
-    </div>
-    
-    <!-- Main Content -->
-    <div class="main-content">
-        <div class="wizard-header">
-            <h2>Magento Store Configuration Wizard</h2>
-        </div>
-        
-        <div class="progress-container">
-            <div class="progress-bar" style="width: 16.66%"></div>
-        </div>
-        
-        <!-- Step 1: Introduction -->
-        <div class="wizard-step active" id="step-1">
-            <div class="step-card">
-                <h3 class="step-title">Welcome to Corefinity's Store Configurator</h3>
-                <p>This wizard will guide you through the process of setting up your Magento store. Please provide a name for your store configuration.</p>
-                
-                <div class="form-group" style="margin-top: 2rem;">
+        <div class="main-content">
+            <div class="wizard-header">
+                <h2 class="wizard-title">Magento Store Configuration</h2>
+                <div>
+                    <button class="btn btn-outline">Save Progress</button>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" id="progress-bar"></div>
+                </div>
+                <div class="progress-steps">
+                    <span>Introduction</span>
+                    <span>Platform</span>
+                    <span>Modules</span>
+                    <span>Styles</span>
+                    <span>Summary</span>
+                </div>
+            </div>
+
+            <div class="wizard-step active" id="intro-step">
+                <h3 class="step-title">Welcome to Magento Store Configurator</h3>
+                <p class="step-description">
+                    This wizard will guide you through the process of configuring your Magento store. 
+                    Please provide a name for your configuration to get started.
+                </p>
+                <div class="form-group">
                     <label for="config-name" class="form-label">Configuration Name</label>
-                    <input type="text" id="config-name" class="form-control" placeholder="e.g., My Awesome Store">
-                    <p class="form-text">This name will help you identify this configuration later.</p>
+                    <input type="text" id="config-name" class="form-control" placeholder="e.g., My Online Store">
+                    <div class="validation-error" id="name-error">Please enter a configuration name</div>
                 </div>
             </div>
-            
-            <div class="wizard-nav">
-                <button class="btn btn-outline" disabled>Previous</button>
-                <button class="btn btn-primary next-step" data-next="2">Next Step</button>
-            </div>
-        </div>
-        
-        <!-- Step 2: Platform Selection -->
-        <div class="wizard-step" id="step-2">
-            <div class="step-card">
+
+            <div class="wizard-step" id="platform-step">
                 <h3 class="step-title">Select Your Platform</h3>
-                <p>Choose the e-commerce platform you want to use for your store.</p>
-                
+                <p class="step-description">
+                    Choose the platform you want to use for your store. This will determine the available versions and dependencies.
+                </p>
                 <div class="platform-options">
-                    <div class="platform-option" data-platform="magento">
-                        <img src="https://cdn.worldvectorlogo.com/logos/magento-1.svg" alt="Magento Logo">
+                    <div class="platform-card" data-platform="magento">
+                        <img src="https://images.seeklogo.com/logo-png/24/1/magento-logo-png_seeklogo-242723.png" alt="Magento Logo">
                         <h3>Magento</h3>
+                        <p>Open-source eCommerce platform</p>
                     </div>
-                    <div class="platform-option" data-platform="laravel">
-                        <img src="https://cdn.worldvectorlogo.com/logos/laravel-2.svg" alt="Laravel Logo">
-                        <h3>Laravel</h3>
+                    <div class="platform-card" data-platform="shopify">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Shopify_logo_2018.svg/1200px-Shopify_logo_2018.svg.png" alt="Shopify Logo">
+                        <h3>Shopify</h3>
+                        <p>Cloud-based eCommerce platform</p>
                     </div>
-                    <div class="platform-option" data-platform="wordpress">
-                        <img src="https://cdn.worldvectorlogo.com/logos/wordpress-blue.svg" alt="WordPress Logo">
-                        <h3>WordPress</h3>
+                    <div class="platform-card" data-platform="woocommerce">
+                        <img src="https://toppng.com/uploads/preview/woocommerce-logo-11609383002t2vrfxk1rt.png" alt="">
+                        <h3>WooCommerce</h3>
+                        <p>WordPress eCommerce plugin</p>
                     </div>
                 </div>
-                
-                <div class="form-group platform-version-group" style="display: none;">
-                    <label for="platform-version" class="form-label">Platform Version</label>
+                <div class="version-select" id="version-select">
+                    <label for="platform-version" class="form-label">Select Version</label>
                     <select id="platform-version" class="form-control">
-                        <option value="">Select a version</option>
-                        <!-- Options will be populated by JavaScript -->
+                        <option value="">-- Select a version --</option>
                     </select>
+                    <div class="validation-error" id="version-error">Please select a platform version</div>
                 </div>
-                
-                <div class="dependencies-container">
-                    <h4 style="margin-bottom: 1rem;">Required Dependencies</h4>
-                    <div class="dependencies-grid">
-                        <!-- Dependencies will be populated by JavaScript -->
-                    </div>
+                <div class="dependencies" id="dependencies">
+                    <h4>Required Dependencies</h4>
+                    <div class="dependency-list" id="dependency-list"></div>
                 </div>
             </div>
-            
-            <div class="wizard-nav">
-                <button class="btn btn-outline prev-step" data-prev="1">Previous</button>
-                <button class="btn btn-primary next-step" data-next="3" disabled>Next Step</button>
-            </div>
-        </div>
-        
-        <!-- Step 3: Modules Selection -->
-        <div class="wizard-step" id="step-3">
-            <div class="step-card">
+
+            <div class="wizard-step" id="modules-step">
                 <h3 class="step-title">Select Modules</h3>
-                <p>Choose the modules and extensions you want to include in your store.</p>
-                
-                <div class="modules-container">
-                    <div class="module-category">
-                        <div class="category-title">
-                            <i>📦</i>
-                            <span>Core Modules</span>
-                        </div>
-                        
-                        <div class="module-grid">
-                            <div class="module-card">
-                                <div class="module-header">
-                                    <input type="checkbox" class="module-checkbox" id="module-catalog" data-module="Catalog">
-                                    <div class="module-info">
-                                        <h4 class="module-title">Catalog</h4>
-                                        <p class="module-description">Product catalog management with categories, attributes, and inventory.</p>
-                                        <p class="module-license">Requires license key</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="module-card">
-                                <div class="module-header">
-                                    <input type="checkbox" class="module-checkbox" id="module-checkout" data-module="Checkout">
-                                    <div class="module-info">
-                                        <h4 class="module-title">Checkout</h4>
-                                        <p class="module-description">Streamlined checkout process with multiple payment options.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="module-card">
-                                <div class="module-header">
-                                    <input type="checkbox" class="module-checkbox" id="module-cms" data-module="CMS">
-                                    <div class="module-info">
-                                        <h4 class="module-title">CMS</h4>
-                                        <p class="module-description">Content management system for pages, blocks, and widgets.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="module-card">
-                                <div class="module-header">
-                                    <input type="checkbox" class="module-checkbox" id="module-customer" data-module="Customer">
-                                    <div class="module-info">
-                                        <h4 class="module-title">Customer</h4>
-                                        <p class="module-description">Customer account management and authentication.</p>
-                                    </div>
-                                </div>
-                            </div>
+                <p class="step-description">
+                    Choose the modules you want to include in your store. Some modules may require a license key.
+                </p>
+                <div class="module-grid">
+                    <div class="module-card" data-module="payment">
+                        <h3>Payment Gateways <i class="material-icons">payment</i></h3>
+                        <p>Add multiple payment options including PayPal, Stripe, and credit card processing.</p>
+                        <div class="module-license">
+                            <label class="form-label">License Key (if required)</label>
+                            <input type="text" class="license-input" placeholder="Enter license key">
                         </div>
                     </div>
-                    
-                    <div class="module-category">
-                        <div class="category-title">
-                            <i>🚀</i>
-                            <span>Performance Modules</span>
-                        </div>
-                        
-                        <div class="module-grid">
-                            <div class="module-card">
-                                <div class="module-header">
-                                    <input type="checkbox" class="module-checkbox" id="module-cache" data-module="Full Page Cache">
-                                    <div class="module-info">
-                                        <h4 class="module-title">Full Page Cache</h4>
-                                        <p class="module-description">Improves performance by caching entire pages.</p>
-                                        <p class="module-license">Requires license key</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="module-card">
-                                <div class="module-header">
-                                    <input type="checkbox" class="module-checkbox" id="module-varnish" data-module="Varnish Cache">
-                                    <div class="module-info">
-                                        <h4 class="module-title">Varnish Cache</h4>
-                                        <p class="module-description">High-performance HTTP accelerator for faster page loads.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="module-card">
-                                <div class="module-header">
-                                    <input type="checkbox" class="module-checkbox" id="module-redis" data-module="Redis">
-                                    <div class="module-info">
-                                        <h4 class="module-title">Redis</h4>
-                                        <p class="module-description">In-memory data structure store for session and cache.</p>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="module-card" data-module="shipping">
+                        <h3>Shipping Methods <i class="material-icons">local_shipping</i></h3>
+                        <p>Integrate with major shipping carriers and provide real-time shipping rates.</p>
+                        <div class="module-license">
+                            <label class="form-label">License Key (if required)</label>
+                            <input type="text" class="license-input" placeholder="Enter license key">
                         </div>
                     </div>
-                    
-                    <div class="module-category">
-                        <div class="category-title">
-                            <i>💰</i>
-                            <span>Payment Modules</span>
+                    <div class="module-card" data-module="seo">
+                        <h3>SEO Toolkit <i class="material-icons">search</i></h3>
+                        <p>Optimize your store for search engines with advanced SEO features.</p>
+                        <div class="module-license">
+                            <label class="form-label">License Key (if required)</label>
+                            <input type="text" class="license-input" placeholder="Enter license key">
                         </div>
-                        
-                        <div class="module-grid">
-                            <div class="module-card">
-                                <div class="module-header">
-                                    <input type="checkbox" class="module-checkbox" id="module-paypal" data-module="PayPal">
-                                    <div class="module-info">
-                                        <h4 class="module-title">PayPal</h4>
-                                        <p class="module-description">Accept PayPal payments with various options.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="module-card">
-                                <div class="module-header">
-                                    <input type="checkbox" class="module-checkbox" id="module-stripe" data-module="Stripe">
-                                    <div class="module-info">
-                                        <h4 class="module-title">Stripe</h4>
-                                        <p class="module-description">Credit card payments via Stripe gateway.</p>
-                                        <p class="module-license">Requires license key</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="module-card">
-                                <div class="module-header">
-                                    <input type="checkbox" class="module-checkbox" id="module-klarna" data-module="Klarna">
-                                    <div class="module-info">
-                                        <h4 class="module-title">Klarna</h4>
-                                        <p class="module-description">Buy now, pay later payment options.</p>
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="module-card" data-module="analytics">
+                        <h3>Analytics <i class="material-icons">analytics</i></h3>
+                        <p>Track visitor behavior and sales performance with integrated analytics.</p>
+                        <div class="module-license">
+                            <label class="form-label">License Key (if required)</label>
+                            <input type="text" class="license-input" placeholder="Enter license key">
+                        </div>
+                    </div>
+                    <div class="module-card" data-module="security">
+                        <h3>Security Suite <i class="material-icons">security</i></h3>
+                        <p>Enhance your store's security with advanced protection features.</p>
+                        <div class="module-license">
+                            <label class="form-label">License Key (if required)</label>
+                            <input type="text" class="license-input" placeholder="Enter license key">
+                        </div>
+                    </div>
+                    <div class="module-card" data-module="multilingual">
+                        <h3>Multilingual <i class="material-icons">translate</i></h3>
+                        <p>Support multiple languages to reach a global audience.</p>
+                        <div class="module-license">
+                            <label class="form-label">License Key (if required)</label>
+                            <input type="text" class="license-input" placeholder="Enter license key">
+                        </div>
+                    </div>
+                    <div class="module-card" data-module="blog">
+                        <h3>Blog <i class="material-icons">article</i></h3>
+                        <p>Add a blog to your store to engage customers and improve SEO.</p>
+                        <div class="module-license">
+                            <label class="form-label">License Key (if required)</label>
+                            <input type="text" class="license-input" placeholder="Enter license key">
+                        </div>
+                    </div>
+                    <div class="module-card" data-module="reviews">
+                        <h3>Product Reviews <i class="material-icons">rate_review</i></h3>
+                        <p>Allow customers to leave reviews and ratings for your products.</p>
+                        <div class="module-license">
+                            <label class="form-label">License Key (if required)</label>
+                            <input type="text" class="license-input" placeholder="Enter license key">
+                        </div>
+                    </div>
+                    <div class="module-card" data-module="wishlist">
+                        <h3>Wishlist <i class="material-icons">favorite</i></h3>
+                        <p>Let customers save products to their wishlist for later purchase.</p>
+                        <div class="module-license">
+                            <label class="form-label">License Key (if required)</label>
+                            <input type="text" class="license-input" placeholder="Enter license key">
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="wizard-nav">
-                <button class="btn btn-outline prev-step" data-prev="2">Previous</button>
-                <button class="btn btn-primary next-step" data-next="4">Next Step</button>
-            </div>
-        </div>
-        
-        <!-- Step 4: Styles Selection -->
-        <div class="wizard-step" id="step-4">
-            <div class="step-card">
+
+            <div class="wizard-step" id="styles-step">
                 <h3 class="step-title">Customize Your Store's Appearance</h3>
-                <p>Select a theme and customize the visual style of your store.</p>
+                <p class="step-description">
+                    Select a theme and customize the visual style of your store.
+                </p>
                 
-                <div class="form-group">
-                    <label class="form-label">Theme Selection</label>
-                    <div class="theme-options">
-                        <div class="theme-option selected" data-theme="luma">
-                            <div class="theme-preview">
-                                Luma Theme Preview
+                <div class="styles-grid">
+                    <div class="styles-section">
+                        <h4 class="styles-section-title"><i class="material-icons">style</i> Theme Selection</h4>
+                        <div class="theme-options">
+                            <div class="theme-card selected" data-theme="luma">
+                                <img src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Luma Theme Preview">
+                                <div class="theme-card-body">
+                                    <h3>Luma</h3>
+                                    <p>Magento's default theme with modern design</p>
+                                </div>
                             </div>
-                            <div class="theme-info">
-                                <h3>Luma</h3>
-                                <p>Magento's default theme with modern design elements.</p>
-                            </div>
-                        </div>
-                        <div class="theme-option" data-theme="hyva">
-                            <div class="theme-preview">
-                                Hyva Theme Preview
-                            </div>
-                            <div class="theme-info">
-                                <h3>Hyva</h3>
-                                <p>High-performance theme with Alpine.js and Tailwind CSS.</p>
+                            <div class="theme-card" data-theme="hyva">
+                                <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Hyva Theme Preview">
+                                <div class="theme-card-body">
+                                    <h3>Hyva</h3>
+                                    <p>High-performance theme with Alpine.js</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Color Scheme</label>
-                    
-                    <div class="color-picker-group">
-                        <div class="color-picker-label">Primary Color</div>
-                        <input type="color" class="color-picker" id="primary-color" value="#4a6bff">
-                        <div class="color-value">#4a6bff</div>
+                        <button class="btn btn-outline" id="preview-theme-btn">Preview Theme</button>
                     </div>
                     
-                    <div class="color-picker-group">
-                        <div class="color-picker-label">Secondary Color</div>
-                        <input type="color" class="color-picker" id="secondary-color" value="#2d3748">
-                        <div class="color-value">#2d3748</div>
+                    <div class="styles-section">
+                        <h4 class="styles-section-title"><i class="material-icons">color_lens</i> Color Scheme</h4>
+                        <div class="color-picker-group">
+                            <div class="color-picker">
+                                <label class="color-picker-label">Primary</label>
+                                <input type="color" id="primary-color" value="#3f51b5">
+                            </div>
+                            <div class="color-picker">
+                                <label class="color-picker-label">Secondary</label>
+                                <input type="color" id="secondary-color" value="#5c6bc0">
+                            </div>
+                            <div class="color-picker">
+                                <label class="color-picker-label">Accent</label>
+                                <input type="color" id="tertiary-color" value="#1a237e">
+                            </div>
+                        </div>
+                        <button class="btn btn-outline" id="preview-colors-btn">Preview Colors</button>
                     </div>
                     
-                    <div class="color-picker-group">
-                        <div class="color-picker-label">Tertiary Color</div>
-                        <input type="color" class="color-picker" id="tertiary-color" value="#4a5568">
-                        <div class="color-value">#4a5568</div>
+                    <div class="styles-section">
+                        <h4 class="styles-section-title"><i class="material-icons">image</i> Brand Assets</h4>
+                        <div class="image-upload">
+                            <label class="form-label">Store Logo (Recommended: 300x100px, PNG)</label>
+                            <div class="image-upload-preview">
+                                <div class="upload-container" id="logo-upload">
+                                    <i class="material-icons">image</i>
+                                    <span>Upload Logo</span>
+                                    <input type="file" id="logo-input" accept="image/*">
+                                </div>
+                                <img id="logo-preview" class="preview-image" alt="Logo Preview">
+                            </div>
+                        </div>
+                        <div class="image-upload">
+                            <label class="form-label">Favicon (Recommended: 64x64px, ICO or PNG)</label>
+                            <div class="image-upload-preview">
+                                <div class="upload-container" id="favicon-upload">
+                                    <i class="material-icons">image</i>
+                                    <span>Upload Favicon</span>
+                                    <input type="file" id="favicon-input" accept="image/*">
+                                </div>
+                                <img id="favicon-preview" class="preview-image" alt="Favicon Preview">
+                            </div>
+                        </div>
+                        <button class="btn btn-outline" id="preview-logos-btn">Preview Branding</button>
                     </div>
                     
-                    <button class="btn btn-outline" id="preview-btn" style="margin-top: 1rem;">
-                        Preview Theme
-                    </button>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Logo & Favicon</label>
-                    
-                    <div class="image-upload-container">
-                        <div class="image-upload-box" id="logo-upload">
-                            <div class="upload-icon">🖼️</div>
-                            <h3>Store Logo</h3>
-                            <p>Recommended size: 300x100px (PNG or SVG)</p>
-                            <div class="upload-btn">Upload Logo</div>
-                            <input type="file" id="logo-file" accept="image/png, image/svg+xml" style="display: none;">
-                            <div class="image-preview" id="logo-preview"></div>
+                    <div class="styles-section">
+                        <h4 class="styles-section-title"><i class="material-icons">font_download</i> Typography</h4>
+                        <div class="font-selector">
+                            <input type="text" class="font-search" placeholder="Search fonts...">
+                            <div class="font-options">
+                                <div class="font-option selected" data-font="Inter">
+                                    <div style="font-family: 'Inter'">Inter</div>
+                                </div>
+                                <div class="font-option" data-font="Roboto">
+                                    <div style="font-family: 'Roboto'">Roboto</div>
+                                </div>
+                                <div class="font-option" data-font="Open Sans">
+                                    <div style="font-family: 'Open Sans'">Open Sans</div>
+                                </div>
+                                <div class="font-option" data-font="Montserrat">
+                                    <div style="font-family: 'Montserrat'">Montserrat</div>
+                                </div>
+                                <div class="font-option" data-font="Poppins">
+                                    <div style="font-family: 'Poppins'">Poppins</div>
+                                </div>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="use-default-font">
+                                <label for="use-default-font">Use default theme font</label>
+                            </div>
                         </div>
-                        
-                        <div class="image-upload-box" id="favicon-upload">
-                            <div class="upload-icon">📌</div>
-                            <h3>Favicon</h3>
-                            <p>Recommended size: 64x64px (ICO or PNG)</p>
-                            <div class="upload-btn">Upload Favicon</div>
-                            <input type="file" id="favicon-file" accept="image/png, image/x-icon" style="display: none;">
-                            <div class="image-preview" id="favicon-preview"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Font Selection</label>
-                    
-                    <div class="font-options">
-                        <div class="font-search-container">
-                            <i class="font-search-icon">🔍</i>
-                            <input type="text" class="font-search" placeholder="Search Google Fonts...">
-                        </div>
-                        
-                        <div class="font-list">
-                            <div class="font-item selected" data-font="Roboto">Roboto</div>
-                            <div class="font-item" data-font="Open Sans">Open Sans</div>
-                            <div class="font-item" data-font="Montserrat">Montserrat</div>
-                            <div class="font-item" data-font="Poppins">Poppins</div>
-                            <div class="font-item" data-font="Lato">Lato</div>
-                            <div class="font-item" data-font="Nunito">Nunito</div>
-                            <div class="font-item" data-font="Playfair Display">Playfair Display</div>
-                            <div class="font-item" data-font="Merriweather">Merriweather</div>
-                        </div>
-                        
-                        <div class="use-default-font">
-                            <input type="checkbox" id="use-default-font">
-                            <label for="use-default-font">Use default theme font</label>
-                        </div>
+                        <button class="btn btn-outline" id="preview-font-btn">Preview Typography</button>
                     </div>
                 </div>
             </div>
-            
-            <div class="wizard-nav">
-                <button class="btn btn-outline prev-step" data-prev="3">Previous</button>
-                <button class="btn btn-primary next-step" data-next="5">Next Step</button>
-            </div>
-        </div>
-        
-        <!-- Step 5: Sample Data -->
-        <div class="wizard-step" id="step-5">
-            <div class="step-card">
+
+            <div class="wizard-step" id="sample-data-step">
                 <h3 class="step-title">Sample Data</h3>
-                <p>Would you like to install sample data to help you get started?</p>
-                
-                <div class="form-group" style="margin-top: 2rem;">
-                    <div class="form-check">
-                        <input type="checkbox" id="install-sample-data" class="form-check-input">
-                        <label for="install-sample-data" class="form-check-label">Install Sample Data</label>
+                <p class="step-description">
+                    Would you like to install sample data to help you get started with your store?
+                </p>
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="install-sample-data">
+                        <label for="install-sample-data">Install sample data</label>
                     </div>
-                    <p class="form-text">Sample data includes demo products, categories, pages, and configurations to help you understand how Magento works.</p>
+                </div>
+                <div style="background-color: var(--light-gray); padding: 1rem; border-radius: var(--border-radius);">
+                    <i class="material-icons" style="color: var(--primary-color); vertical-align: middle;">info</i>
+                    <span style="vertical-align: middle;">Sample data includes demo products, categories, and pages to help you understand how your store works.</span>
                 </div>
             </div>
-            
-            <div class="wizard-nav">
-                <button class="btn btn-outline prev-step" data-prev="4">Previous</button>
-                <button class="btn btn-primary next-step" data-next="6">Next Step</button>
-            </div>
-        </div>
-        
-        <!-- Step 6: Summary -->
-        <div class="wizard-step" id="step-6">
-            <div class="step-card">
+
+            <div class="wizard-step" id="summary-step">
                 <h3 class="step-title">Review Your Configuration</h3>
-                <p>Please review your selections before completing the setup.</p>
+                <p class="step-description">
+                    Please review all your selections before completing the configuration.
+                </p>
                 
-                <div class="summary-section">
-                    <div class="summary-title">
-                        <i>📝</i>
-                        <span>Basic Information</span>
-                    </div>
-                    <div class="summary-content">
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <h4><i class="material-icons">info</i> Basic Information</h4>
                         <div class="summary-item">
-                            <div class="summary-label">Configuration Name:</div>
-                            <div class="summary-value" id="summary-config-name">My Awesome Store</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="summary-section">
-                    <div class="summary-title">
-                        <i>🖥️</i>
-                        <span>Platform</span>
-                    </div>
-                    <div class="summary-content">
-                        <div class="summary-item">
-                            <div class="summary-label">Platform:</div>
-                            <div class="summary-value" id="summary-platform">Magento</div>
+                            <strong>Configuration Name</strong>
+                            <span id="summary-name">My Online Store</span>
                         </div>
                         <div class="summary-item">
-                            <div class="summary-label">Version:</div>
-                            <div class="summary-value" id="summary-version">2.4.7</div>
+                            <strong>Sample Data</strong>
+                            <span id="summary-sample-data">Yes</span>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card">
+                        <h4><i class="material-icons">dns</i> Platform</h4>
+                        <div class="summary-item">
+                            <strong>Selected Platform</strong>
+                            <span id="summary-platform">Magento</span>
                         </div>
                         <div class="summary-item">
-                            <div class="summary-label">Dependencies:</div>
-                            <div class="summary-value">
-                                <div>PHP: 8.3</div>
-                                <div>MariaDB: 10.6</div>
-                                <div>Redis: 7.2</div>
-                                <div>OpenSearch: 2.11</div>
+                            <strong>Version</strong>
+                            <span id="summary-version">2.4.7</span>
+                        </div>
+                        <div class="summary-item">
+                            <strong>Dependencies</strong>
+                            <ul id="summary-dependencies" style="margin-top: 0.25rem;">
+                                <li style="font-size: 0.875rem;">PHP: 8.3</li>
+                                <li style="font-size: 0.875rem;">MariaDB: 10.6</li>
+                                <li style="font-size: 0.875rem;">Redis: 7.2</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card">
+                        <h4><i class="material-icons">extension</i> Modules</h4>
+                        <div class="summary-item">
+                            <strong>Selected Modules</strong>
+                            <ul id="summary-modules" style="margin-top: 0.25rem;">
+                                <li style="font-size: 0.875rem;">Payment Gateways</li>
+                                <li style="font-size: 0.875rem;">Shipping Methods</li>
+                                <li style="font-size: 0.875rem;">SEO Toolkit</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card">
+                        <h4><i class="material-icons">style</i> Theme</h4>
+                        <div class="summary-item">
+                            <strong>Selected Theme</strong>
+                            <span id="summary-theme">Luma</span>
+                        </div>
+                        <div class="summary-item">
+                            <strong>Color Scheme</strong>
+                            <div class="summary-colors">
+                                <div class="summary-color" style="background-color: #3f51b5;"></div>
+                                <div class="summary-color" style="background-color: #5c6bc0;"></div>
+                                <div class="summary-color" style="background-color: #1a237e;"></div>
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="summary-section">
-                    <div class="summary-title">
-                        <i>📦</i>
-                        <span>Modules</span>
-                    </div>
-                    <div class="summary-content">
-                        <div class="modules-summary" id="modules-summary">
-                            <div class="module-tag">Catalog</div>
-                            <div class="module-tag">Checkout</div>
-                            <div class="module-tag">CMS</div>
-                            <div class="module-tag">Full Page Cache</div>
-                            <div class="module-tag">PayPal</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="summary-section">
-                    <div class="summary-title">
-                        <i>🎨</i>
-                        <span>Styles</span>
-                    </div>
-                    <div class="summary-content">
+                    
+                    <div class="summary-card">
+                        <h4><i class="material-icons">font_download</i> Typography</h4>
                         <div class="summary-item">
-                            <div class="summary-label">Theme:</div>
-                            <div class="summary-value" id="summary-theme">Luma</div>
+                            <strong>Selected Font</strong>
+                            <span id="summary-font" style="font-family: 'Inter'">Inter</span>
                         </div>
                         <div class="summary-item">
-                            <div class="summary-label">Colors:</div>
-                            <div class="summary-value">
-                                <div>Primary: <span style="color: #4a6bff;">#4a6bff</span></div>
-                                <div>Secondary: <span style="color: #2d3748;">#2d3748</span></div>
-                                <div>Tertiary: <span style="color: #4a5568;">#4a5568</span></div>
+                            <strong>Font Preview</strong>
+                            <div class="summary-font-sample" style="font-family: 'Inter'">The quick brown fox jumps over the lazy dog</div>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card">
+                        <h4><i class="material-icons">image</i> Branding</h4>
+                        <div class="summary-item">
+                            <strong>Logo</strong>
+                            <div class="summary-images">
+                                <img id="summary-logo" src="https://via.placeholder.com/150x50?text=Logo" alt="Logo Preview" class="summary-image">
                             </div>
                         </div>
                         <div class="summary-item">
-                            <div class="summary-label">Font:</div>
-                            <div class="summary-value" id="summary-font">Roboto</div>
-                        </div>
-                        <div class="summary-item">
-                            <div class="summary-label">Logo:</div>
-                            <div class="summary-value" id="summary-logo">Uploaded</div>
-                        </div>
-                        <div class="summary-item">
-                            <div class="summary-label">Favicon:</div>
-                            <div class="summary-value" id="summary-favicon">Uploaded</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="summary-section">
-                    <div class="summary-title">
-                        <i>📊</i>
-                        <span>Sample Data</span>
-                    </div>
-                    <div class="summary-content">
-                        <div class="summary-item">
-                            <div class="summary-label">Install Sample Data:</div>
-                            <div class="summary-value" id="summary-sample-data">Yes</div>
+                            <strong>Favicon</strong>
+                            <div class="summary-images">
+                                <img id="summary-favicon" src="https://via.placeholder.com/50x50?text=Favicon" alt="Favicon Preview" class="summary-image">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="wizard-nav">
-                <button class="btn btn-outline prev-step" data-prev="5">Previous</button>
-                <button class="btn btn-primary" id="complete-btn">Build & Deploy Site</button>
+
+            <div class="wizard-footer">
+                <button class="btn btn-outline" id="prev-btn" disabled>
+                    <i class="material-icons">chevron_left</i>
+                    Previous
+                </button>
+                <button class="btn btn-primary" id="next-btn">
+                    Next Step
+                    <i class="material-icons">chevron_right</i>
+                </button>
             </div>
         </div>
     </div>
-    
-    <!-- Preview Modal -->
-    <div class="modal" id="preview-modal">
+
+    <div class="preview-modal" id="preview-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Theme Preview</h3>
-                <button class="modal-close">&times;</button>
+                <h3>Store Preview</h3>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-tabs">
+                <div class="modal-tab active" data-tab="desktop">Desktop</div>
+                <div class="modal-tab" data-tab="mobile">Mobile</div>
             </div>
             <div class="modal-body">
-                <div class="preview-tabs">
-                    <div class="preview-tab active" data-tab="desktop">Desktop</div>
-                    <div class="preview-tab" data-tab="mobile">Mobile</div>
-                </div>
-                
-                <div class="preview-content active" id="desktop-preview">
-                    <div class="desktop-preview">
-                        <div class="desktop-header">
-                            <div class="desktop-header-buttons">
-                                <div class="desktop-header-btn red"></div>
-                                <div class="desktop-header-btn yellow"></div>
-                                <div class="desktop-header-btn green"></div>
-                            </div>
-                            <div class="desktop-header-url">https://yourstore.com</div>
+                <div class="preview-desktop active">
+                    <div class="preview-nav">
+                        <img src="https://via.placeholder.com/150x50?text=Logo" alt="Store Logo" class="preview-logo" id="preview-desktop-logo">
+                        <div class="preview-nav-links">
+                            <a href="#">Home</a>
+                            <a href="#">Shop</a>
+                            <a href="#">Categories</a>
+                            <a href="#">About</a>
+                            <a href="#">Contact</a>
                         </div>
-                        
-                        <div class="desktop-navbar">
-                            <img src="https://via.placeholder.com/150x50?text=Your+Logo" alt="Store Logo" class="desktop-logo">
-                            <div class="desktop-nav-links">
-                                <a href="#" class="desktop-nav-link">Home</a>
-                                <a href="#" class="desktop-nav-link">Shop</a>
-                                <a href="#" class="desktop-nav-link">Categories</a>
-                                <a href="#" class="desktop-nav-link">About</a>
-                                <a href="#" class="desktop-nav-link">Contact</a>
+                    </div>
+                    <div class="preview-hero">
+                        <h2>Welcome to Our Store</h2>
+                        <p>Discover our amazing products and great deals</p>
+                        <a href="#" class="preview-btn">Shop Now</a>
+                    </div>
+                    <div class="preview-products">
+                        <div class="preview-product">
+                            <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Product 1">
+                            <div class="preview-product-info">
+                                <h4>Premium Headphones</h4>
+                                <p>$199.99</p>
+                                <a href="#" class="preview-btn">Add to Cart</a>
                             </div>
                         </div>
-                        
-                        <div class="desktop-hero">
-                            Welcome to Your Store
+                        <div class="preview-product">
+                            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Product 2">
+                            <div class="preview-product-info">
+                                <h4>Smart Watch</h4>
+                                <p>$249.99</p>
+                                <a href="#" class="preview-btn">Add to Cart</a>
+                            </div>
                         </div>
-                        
-                        <div class="desktop-products">
-                            <div class="desktop-product">
-                                <div class="desktop-product-image">Product Image</div>
-                                <div class="desktop-product-title">Sample Product 1</div>
-                                <div class="desktop-product-price">$29.99</div>
-                                <button class="desktop-product-btn">Add to Cart</button>
-                            </div>
-                            <div class="desktop-product">
-                                <div class="desktop-product-image">Product Image</div>
-                                <div class="desktop-product-title">Sample Product 2</div>
-                                <div class="desktop-product-price">$39.99</div>
-                                <button class="desktop-product-btn">Add to Cart</button>
-                            </div>
-                            <div class="desktop-product">
-                                <div class="desktop-product-image">Product Image</div>
-                                <div class="desktop-product-title">Sample Product 3</div>
-                                <div class="desktop-product-price">$49.99</div>
-                                <button class="desktop-product-btn">Add to Cart</button>
-                            </div>
-                            <div class="desktop-product">
-                                <div class="desktop-product-image">Product Image</div>
-                                <div class="desktop-product-title">Sample Product 4</div>
-                                <div class="desktop-product-price">$59.99</div>
-                                <button class="desktop-product-btn">Add to Cart</button>
+                        <div class="preview-product">
+                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Product 3">
+                            <div class="preview-product-info">
+                                <h4>Wireless Earbuds</h4>
+                                <p>$129.99</p>
+                                <a href="#" class="preview-btn">Add to Cart</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="preview-content" id="mobile-preview">
-                    <div class="mobile-preview">
-                        <div class="mobile-status-bar">
-                            <span>9:41</span>
-                            <span>📶 100% 🔋</span>
-                        </div>
-                        
-                        <div class="mobile-navbar">
-                            <img src="https://via.placeholder.com/100x30?text=Your+Logo" alt="Store Logo" class="mobile-logo">
-                            <div class="mobile-menu-btn">☰</div>
-                        </div>
-                        
-                        <div class="mobile-hero">
-                            Welcome to Your Store
-                        </div>
-                        
-                        <div class="mobile-products">
-                            <div class="mobile-product">
-                                <div class="mobile-product-image">Product Image</div>
-                                <div class="mobile-product-title">Sample Product 1</div>
-                                <div class="mobile-product-price">$29.99</div>
-                                <button class="mobile-product-btn">Add to Cart</button>
-                            </div>
-                            <div class="mobile-product">
-                                <div class="mobile-product-image">Product Image</div>
-                                <div class="mobile-product-title">Sample Product 2</div>
-                                <div class="mobile-product-price">$39.99</div>
-                                <button class="mobile-product-btn">Add to Cart</button>
+                <div class="preview-mobile">
+                    <div class="preview-mobile-header">
+                        <img src="https://via.placeholder.com/100x30?text=Logo" alt="Store Logo" class="preview-logo" id="preview-mobile-logo">
+                        <i class="material-icons">search</i>
+                    </div>
+                    <div style="height: 200px; background-color: var(--preview-primary); display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 1rem;">
+                        <h3 style="font-family: var(--preview-font); margin-bottom: 0.5rem;">Welcome to Our Store</h3>
+                        <p style="margin-bottom: 1rem;">Discover our amazing products</p>
+                        <a href="#" style="background-color: white; color: var(--preview-primary); padding: 0.5rem 1rem; border-radius: var(--border-radius); text-decoration: none; font-weight: 500;">Shop Now</a>
+                    </div>
+                    <div style="padding: 1rem;">
+                        <div style="margin-bottom: 1rem; border: 1px solid var(--medium-gray); border-radius: var(--border-radius); overflow: hidden;">
+                            <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Product 1" style="width: 100%;">
+                            <div style="padding: 0.75rem;">
+                                <h4 style="font-family: var(--preview-font); margin-bottom: 0.25rem;">Premium Headphones</h4>
+                                <p style="color: var(--dark-gray); margin-bottom: 0.5rem;">$199.99</p>
+                                <a href="#" style="background-color: var(--preview-primary); color: white; padding: 0.5rem; border-radius: var(--border-radius); text-decoration: none; display: block; text-align: center; font-weight: 500;">Add to Cart</a>
                             </div>
                         </div>
+                    </div>
+                    <div class="preview-mobile-nav">
+                        <i class="material-icons">home</i>
+                        <i class="material-icons">shopping_cart</i>
+                        <i class="material-icons">category</i>
+                        <i class="material-icons">person</i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <script>
-        // Platform Data
         const platformData = {
             magento: {
                 versions: {
@@ -1701,465 +1502,391 @@
                         mariadb: '10.4',
                         redis: '6.2',
                         opensearch: '2.6'
+                    }
+                }
+            },
+            shopify: {
+                versions: {
+                    '2024.1': {
+                        php: 'N/A',
+                        mariadb: 'N/A',
+                        redis: 'N/A',
+                        opensearch: 'N/A'
                     },
-                    '2.4.4': {
-                        php: '8.0',
-                        mariadb: '10.4',
-                        redis: '6.0',
-                        opensearch: '2.4'
-                    },
-                    '2.3.7': {
-                        php: '7.4',
-                        mariadb: '10.3',
-                        redis: '5.0',
+                    '2023.4': {
+                        php: 'N/A',
+                        mariadb: 'N/A',
+                        redis: 'N/A',
                         opensearch: 'N/A'
                     }
                 }
             },
-            laravel: {
+            woocommerce: {
                 versions: {
-                    '11': {
-                        php: '8.2',
-                        mariadb: '10.6',
-                        redis: '7.2',
-                        opensearch: 'N/A'
-                    },
-                    '10': {
-                        php: '8.1',
-                        mariadb: '10.4',
-                        redis: '6.2',
-                        opensearch: 'N/A'
-                    },
-                    '9': {
-                        php: '8.0',
+                    '8.5': {
+                        php: '7.4',
                         mariadb: '10.3',
                         redis: '6.0',
                         opensearch: 'N/A'
                     },
-                    '8': {
-                        php: '7.4',
-                        mariadb: '10.3',
-                        redis: '5.0',
-                        opensearch: 'N/A'
-                    },
-                    '7': {
+                    '8.4': {
                         php: '7.3',
                         mariadb: '10.2',
                         redis: '5.0',
-                        opensearch: 'N/A'
-                    }
-                }
-            },
-            wordpress: {
-                versions: {
-                    '6.5': {
-                        php: '8.1',
-                        mariadb: '10.4',
-                        redis: '7.0',
-                        opensearch: 'N/A'
-                    },
-                    '6.4': {
-                        php: '8.0',
-                        mariadb: '10.3',
-                        redis: '6.0',
-                        opensearch: 'N/A'
-                    },
-                    '6.3': {
-                        php: '7.4',
-                        mariadb: '10.2',
-                        redis: '5.0',
-                        opensearch: 'N/A'
-                    },
-                    '6.2': {
-                        php: '7.3',
-                        mariadb: '10.1',
-                        redis: '5.0',
-                        opensearch: 'N/A'
-                    },
-                    '5.9': {
-                        php: '7.2',
-                        mariadb: '10.0',
-                        redis: '4.0',
                         opensearch: 'N/A'
                     }
                 }
             }
         };
 
-        // DOM Elements
-        const steps = document.querySelectorAll('.wizard-step');
-        const stepItems = document.querySelectorAll('.step-item');
-        const nextButtons = document.querySelectorAll('.next-step');
-        const prevButtons = document.querySelectorAll('.prev-step');
-        const progressBar = document.querySelector('.progress-bar');
-        const platformOptions = document.querySelectorAll('.platform-option');
-        const platformVersionGroup = document.querySelector('.platform-version-group');
-        const platformVersionSelect = document.getElementById('platform-version');
-        const dependenciesContainer = document.querySelector('.dependencies-container');
-        const dependenciesGrid = document.querySelector('.dependencies-grid');
-        const themeOptions = document.querySelectorAll('.theme-option');
-        const colorPickers = document.querySelectorAll('.color-picker');
-        const colorValues = document.querySelectorAll('.color-value');
-        const previewBtn = document.getElementById('preview-btn');
-        const previewModal = document.getElementById('preview-modal');
-        const modalClose = document.querySelector('.modal-close');
-        const previewTabs = document.querySelectorAll('.preview-tab');
-        const previewContents = document.querySelectorAll('.preview-content');
-        const logoUploadBtn = document.getElementById('logo-upload');
-        const logoFileInput = document.getElementById('logo-file');
-        const logoPreview = document.getElementById('logo-preview');
-        const faviconUploadBtn = document.getElementById('favicon-upload');
-        const faviconFileInput = document.getElementById('favicon-file');
-        const faviconPreview = document.getElementById('favicon-preview');
-        const fontItems = document.querySelectorAll('.font-item');
-        const useDefaultFont = document.getElementById('use-default-font');
-        const moduleCheckboxes = document.querySelectorAll('.module-checkbox');
-        const completeBtn = document.getElementById('complete-btn');
-        const configNameInput = document.getElementById('config-name');
-        const installSampleData = document.getElementById('install-sample-data');
-
-        // Summary Elements
-        const summaryConfigName = document.getElementById('summary-config-name');
-        const summaryPlatform = document.getElementById('summary-platform');
-        const summaryVersion = document.getElementById('summary-version');
-        const summaryTheme = document.getElementById('summary-theme');
-        const summaryFont = document.getElementById('summary-font');
-        const summaryLogo = document.getElementById('summary-logo');
-        const summaryFavicon = document.getElementById('summary-favicon');
-        const summarySampleData = document.getElementById('summary-sample-data');
-        const modulesSummary = document.getElementById('modules-summary');
-
-        // Current state
-        let currentStep = 1;
+        const steps = ['intro', 'platform', 'modules', 'styles', 'sample-data', 'summary'];
+        let currentStep = 0;
         let selectedPlatform = null;
+        let selectedVersion = null;
         let selectedTheme = 'luma';
-        let selectedFont = 'Roboto';
+        let selectedFont = 'Inter';
         let selectedModules = [];
+        let useDefaultFont = false;
 
-        // Initialize the wizard
-        function initWizard() {
-            // Show first step
-            showStep(currentStep);
-            
-            // Set up event listeners
-            setupEventListeners();
-        }
+        const progressBar = document.getElementById('progress-bar');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const configNameInput = document.getElementById('config-name');
+        const nameError = document.getElementById('name-error');
+        const versionError = document.getElementById('version-error');
+        const platformCards = document.querySelectorAll('.platform-card');
+        const versionSelect = document.getElementById('version-select');
+        const platformVersionSelect = document.getElementById('platform-version');
+        const dependenciesSection = document.getElementById('dependencies');
+        const dependencyList = document.getElementById('dependency-list');
+        const themeCards = document.querySelectorAll('.theme-card');
+        const previewThemeBtn = document.getElementById('preview-theme-btn');
+        const primaryColor = document.getElementById('primary-color');
+        const secondaryColor = document.getElementById('secondary-color');
+        const tertiaryColor = document.getElementById('tertiary-color');
+        const previewColorsBtn = document.getElementById('preview-colors-btn');
+        const logoUpload = document.getElementById('logo-upload');
+        const logoInput = document.getElementById('logo-input');
+        const logoPreview = document.getElementById('logo-preview');
+        const faviconUpload = document.getElementById('favicon-upload');
+        const faviconInput = document.getElementById('favicon-input');
+        const faviconPreview = document.getElementById('favicon-preview');
+        const previewLogosBtn = document.getElementById('preview-logos-btn');
+        const fontOptions = document.querySelectorAll('.font-option');
+        const useDefaultFontCheckbox = document.getElementById('use-default-font');
+        const previewFontBtn = document.getElementById('preview-font-btn');
+        const moduleCards = document.querySelectorAll('.module-card');
+        const previewModal = document.getElementById('preview-modal');
+        const modalClose = document.getElementById('modal-close');
+        const modalTabs = document.querySelectorAll('.modal-tab');
+        const previewDesktop = document.querySelector('.preview-desktop');
+        const previewMobile = document.querySelector('.preview-mobile');
+        const previewDesktopLogo = document.getElementById('preview-desktop-logo');
+        const previewMobileLogo = document.getElementById('preview-mobile-logo');
+        const navItems = document.querySelectorAll('.nav-item');
 
-        // Set up all event listeners
-        function setupEventListeners() {
-            // Next step buttons
-            nextButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const nextStep = parseInt(button.getAttribute('data-next'));
-                    if (validateStep(currentStep)) {
-                        currentStep = nextStep;
-                        updateProgress();
-                        showStep(currentStep);
-                    }
-                });
-            });
-
-            // Previous step buttons
-            prevButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const prevStep = parseInt(button.getAttribute('data-prev'));
-                    currentStep = prevStep;
-                    updateProgress();
-                    showStep(currentStep);
-                });
-            });
-
-            // Platform selection
-            platformOptions.forEach(option => {
-                option.addEventListener('click', () => {
-                    platformOptions.forEach(opt => opt.classList.remove('selected'));
-                    option.classList.add('selected');
-                    selectedPlatform = option.getAttribute('data-platform');
-                    
-                    // Enable next button
-                    document.querySelector('.next-step[data-next="3"]').disabled = false;
-                    
-                    // Populate versions
-                    populateVersions(selectedPlatform);
-                    
-                    // Show version select
-                    platformVersionGroup.style.display = 'block';
-                });
-            });
-
-            // Platform version selection
-            platformVersionSelect.addEventListener('change', () => {
-                if (platformVersionSelect.value) {
-                    showDependencies(selectedPlatform, platformVersionSelect.value);
-                } else {
-                    dependenciesContainer.classList.remove('show');
-                }
-            });
-
-            // Theme selection
-            themeOptions.forEach(option => {
-                option.addEventListener('click', () => {
-                    themeOptions.forEach(opt => opt.classList.remove('selected'));
-                    option.classList.add('selected');
-                    selectedTheme = option.getAttribute('data-theme');
-                });
-            });
-
-            // Color pickers
-            colorPickers.forEach((picker, index) => {
-                picker.addEventListener('input', () => {
-                    colorValues[index].textContent = picker.value;
-                });
-            });
-
-            // Preview button
-            previewBtn.addEventListener('click', () => {
-                previewModal.classList.add('show');
-                document.body.style.overflow = 'hidden';
-            });
-
-            // Modal close
-            modalClose.addEventListener('click', () => {
-                previewModal.classList.remove('show');
-                document.body.style.overflow = '';
-            });
-
-            // Preview tabs
-            previewTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    previewTabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    
-                    const tabId = tab.getAttribute('data-tab');
-                    previewContents.forEach(content => {
-                        content.classList.remove('active');
-                        if (content.id === `${tabId}-preview`) {
-                            content.classList.add('active');
-                        }
-                    });
-                });
-            });
-
-            // Logo upload
-            logoUploadBtn.addEventListener('click', () => {
-                logoFileInput.click();
-            });
-
-            logoFileInput.addEventListener('change', (e) => {
-                if (e.target.files.length > 0) {
-                    const file = e.target.files[0];
-                    const reader = new FileReader();
-                    
-                    reader.onload = (event) => {
-                        logoPreview.innerHTML = `<img src="${event.target.result}" alt="Logo Preview">`;
-                        logoPreview.style.display = 'block';
-                        summaryLogo.textContent = file.name;
-                    };
-                    
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            // Favicon upload
-            faviconUploadBtn.addEventListener('click', () => {
-                faviconFileInput.click();
-            });
-
-            faviconFileInput.addEventListener('change', (e) => {
-                if (e.target.files.length > 0) {
-                    const file = e.target.files[0];
-                    const reader = new FileReader();
-                    
-                    reader.onload = (event) => {
-                        faviconPreview.innerHTML = `<img src="${event.target.result}" alt="Favicon Preview">`;
-                        faviconPreview.style.display = 'block';
-                        summaryFavicon.textContent = file.name;
-                    };
-                    
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            // Font selection
-            fontItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    if (!useDefaultFont.checked) {
-                        fontItems.forEach(font => font.classList.remove('selected'));
-                        item.classList.add('selected');
-                        selectedFont = item.getAttribute('data-font');
-                        summaryFont.textContent = selectedFont;
-                    }
-                });
-            });
-
-            // Use default font checkbox
-            useDefaultFont.addEventListener('change', (e) => {
-                if (e.target.checked) {
-                    fontItems.forEach(font => font.classList.remove('selected'));
-                    summaryFont.textContent = 'Default theme font';
-                } else {
-                    const selected = document.querySelector('.font-item.selected');
-                    if (selected) {
-                        selectedFont = selected.getAttribute('data-font');
-                        summaryFont.textContent = selectedFont;
-                    }
-                }
-            });
-
-            // Module selection
-            moduleCheckboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', (e) => {
-                    const moduleName = checkbox.getAttribute('data-module');
-                    
-                    if (e.target.checked) {
-                        if (!selectedModules.includes(moduleName)) {
-                            selectedModules.push(moduleName);
-                        }
-                    } else {
-                        selectedModules = selectedModules.filter(m => m !== moduleName);
-                    }
-                    
-                    updateModulesSummary();
-                });
-            });
-
-            // Complete button
-            completeBtn.addEventListener('click', () => {
-                if (validateStep(currentStep)) {
-                    alert('Configuration submitted successfully!');
-                    // Here you would typically send the data to your backend
-                    console.log(getFormData());
-                }
-            });
-
-            // Configuration name input
-            configNameInput.addEventListener('input', () => {
-                summaryConfigName.textContent = configNameInput.value || 'My Awesome Store';
-            });
-
-            // Sample data checkbox
-            installSampleData.addEventListener('change', () => {
-                summarySampleData.textContent = installSampleData.checked ? 'Yes' : 'No';
-            });
-        }
-
-        // Show the current step and hide others
-        function showStep(step) {
-            steps.forEach(s => s.classList.remove('active'));
-            document.getElementById(`step-${step}`).classList.add('active');
-            
-            stepItems.forEach(item => {
-                const itemStep = parseInt(item.getAttribute('data-step'));
-                item.classList.remove('active', 'completed');
-                
-                if (itemStep === step) {
-                    item.classList.add('active');
-                } else if (itemStep < step) {
-                    item.classList.add('completed');
-                }
-            });
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-        }
-
-        // Update progress bar
         function updateProgress() {
-            const progress = (currentStep / 6) * 100;
+            const progress = ((currentStep + 1) / steps.length) * 100;
             progressBar.style.width = `${progress}%`;
         }
 
-        // Validate current step before proceeding
-        function validateStep(step) {
-            switch (step) {
-                case 1:
-                    if (!configNameInput.value.trim()) {
-                        alert('Please enter a configuration name');
-                        return false;
-                    }
-                    return true;
-                case 2:
-                    if (!selectedPlatform || !platformVersionSelect.value) {
-                        alert('Please select a platform and version');
-                        return false;
-                    }
-                    return true;
-                default:
-                    return true;
-            }
-        }
-
-        // Populate platform versions
-        function populateVersions(platform) {
-            platformVersionSelect.innerHTML = '<option value="">Select a version</option>';
-            
-            const versions = platformData[platform].versions;
-            for (const version in versions) {
-                const option = document.createElement('option');
-                option.value = version;
-                option.textContent = version;
-                platformVersionSelect.appendChild(option);
-            }
-        }
-
-        // Show dependencies for selected platform version
-        function showDependencies(platform, version) {
-            const dependencies = platformData[platform].versions[version];
-            dependenciesGrid.innerHTML = '';
-            
-            for (const dep in dependencies) {
-                const depItem = document.createElement('div');
-                depItem.className = 'dependency-item';
-                depItem.innerHTML = `
-                    <i>📦</i>
-                    <div>
-                        <strong>${dep}:</strong> ${dependencies[dep]}
-                    </div>
-                `;
-                dependenciesGrid.appendChild(depItem);
-            }
-            
-            dependenciesContainer.classList.add('show');
-            
-            // Update summary
-            summaryPlatform.textContent = platform.charAt(0).toUpperCase() + platform.slice(1);
-            summaryVersion.textContent = version;
-        }
-
-        // Update modules summary
-        function updateModulesSummary() {
-            modulesSummary.innerHTML = '';
-            
-            selectedModules.forEach(module => {
-                const tag = document.createElement('div');
-                tag.className = 'module-tag';
-                tag.textContent = module;
-                modulesSummary.appendChild(tag);
+        function showStep(stepIndex) {
+            document.querySelectorAll('.wizard-step').forEach(step => {
+                step.classList.remove('active');
             });
+            document.getElementById(`${steps[stepIndex]}-step`).classList.add('active');
+            
+            navItems.forEach((item, index) => {
+                if (index <= stepIndex) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+            
+            prevBtn.disabled = stepIndex === 0;
+            
+            if (stepIndex === steps.length - 1) {
+                nextBtn.textContent = 'Build and Deploy Site';
+                updateSummary();
+            } else {
+                nextBtn.textContent = 'Next Step';
+            }
+            
+            updateProgress();
         }
 
-        // Get all form data
-        function getFormData() {
-            return {
-                configName: configNameInput.value.trim(),
-                platform: selectedPlatform,
-                platformVersion: platformVersionSelect.value,
-                theme: selectedTheme,
-                colors: {
-                    primary: document.getElementById('primary-color').value,
-                    secondary: document.getElementById('secondary-color').value,
-                    tertiary: document.getElementById('tertiary-color').value
-                },
-                font: useDefaultFont.checked ? 'default' : selectedFont,
-                logo: logoFileInput.files.length > 0 ? logoFileInput.files[0].name : null,
-                favicon: faviconFileInput.files.length > 0 ? faviconFileInput.files[0].name : null,
-                modules: selectedModules,
-                sampleData: installSampleData.checked
-            };
+        function validateStep(stepIndex) {
+            switch (steps[stepIndex]) {
+                case 'intro':
+                    if (!configNameInput.value.trim()) {
+                        nameError.classList.add('active');
+                        return false;
+                    }
+                    break;
+                case 'platform':
+                    if (!selectedPlatform || !selectedVersion) {
+                        versionError.classList.add('active');
+                        return false;
+                    }
+                    break;
+            }
+            return true;
         }
 
-        // Initialize the wizard when DOM is loaded
-        document.addEventListener('DOMContentLoaded', initWizard);
+        nextBtn.addEventListener('click', () => {
+            if (!validateStep(currentStep)) return;
+            
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                showStep(currentStep);
+            } else {
+                alert('Configuration submitted successfully!');
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+
+        platformCards.forEach(card => {
+            card.addEventListener('click', () => {
+                platformCards.forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                selectedPlatform = card.dataset.platform;
+                
+                platformVersionSelect.innerHTML = '<option value="">-- Select a version --</option>';
+                for (const version in platformData[selectedPlatform].versions) {
+                    const option = document.createElement('option');
+                    option.value = version;
+                    option.textContent = version;
+                    platformVersionSelect.appendChild(option);
+                }
+                
+                versionSelect.classList.add('active');
+                versionError.classList.remove('active');
+                dependenciesSection.classList.remove('active');
+                selectedVersion = null;
+            });
+        });
+
+        platformVersionSelect.addEventListener('change', () => {
+            selectedVersion = platformVersionSelect.value;
+            if (selectedVersion) {
+                versionError.classList.remove('active');
+                
+                const dependencies = platformData[selectedPlatform].versions[selectedVersion];
+                dependencyList.innerHTML = '';
+                
+                for (const [key, value] of Object.entries(dependencies)) {
+                    const item = document.createElement('div');
+                    item.className = 'dependency-item';
+                    item.innerHTML = `<span>${key}:</span> <span>${value}</span>`;
+                    dependencyList.appendChild(item);
+                }
+                
+                dependenciesSection.classList.add('active');
+            } else {
+                dependenciesSection.classList.remove('active');
+            }
+        });
+
+        themeCards.forEach(card => {
+            card.addEventListener('click', () => {
+                themeCards.forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                selectedTheme = card.dataset.theme;
+            });
+        });
+
+        previewThemeBtn.addEventListener('click', () => {
+            document.documentElement.style.setProperty('--preview-primary', '#3f51b5');
+            document.documentElement.style.setProperty('--preview-secondary', '#5c6bc0');
+            document.documentElement.style.setProperty('--preview-tertiary', '#ffffff');
+            document.documentElement.style.setProperty('--preview-font', 'Inter');
+            
+            previewDesktopLogo.src = 'https://via.placeholder.com/150x50?text=Logo';
+            previewMobileLogo.src = 'https://via.placeholder.com/100x30?text=Logo';
+            
+            previewModal.classList.add('active');
+            previewDesktop.classList.add('active');
+            previewMobile.classList.remove('active');
+            
+            modalTabs.forEach(tab => tab.classList.remove('active'));
+            modalTabs[0].classList.add('active');
+        });
+
+        previewColorsBtn.addEventListener('click', () => {
+            document.documentElement.style.setProperty('--preview-primary', primaryColor.value);
+            document.documentElement.style.setProperty('--preview-secondary', secondaryColor.value);
+            document.documentElement.style.setProperty('--preview-tertiary', tertiaryColor.value);
+            
+            previewModal.classList.add('active');
+            previewDesktop.classList.add('active');
+            previewMobile.classList.remove('active');
+            
+            modalTabs.forEach(tab => tab.classList.remove('active'));
+            modalTabs[0].classList.add('active');
+        });
+
+        logoInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    logoPreview.src = event.target.result;
+                    logoPreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        faviconInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    faviconPreview.src = event.target.result;
+                    faviconPreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        previewLogosBtn.addEventListener('click', () => {
+            if (logoPreview.style.display === 'block') {
+                previewDesktopLogo.src = logoPreview.src;
+                previewMobileLogo.src = logoPreview.src;
+            } else {
+                previewDesktopLogo.src = 'https://via.placeholder.com/150x50?text=Logo';
+                previewMobileLogo.src = 'https://via.placeholder.com/100x30?text=Logo';
+            }
+            
+            previewModal.classList.add('active');
+            previewDesktop.classList.add('active');
+            previewMobile.classList.remove('active');
+            
+            modalTabs.forEach(tab => tab.classList.remove('active'));
+            modalTabs[0].classList.add('active');
+        });
+
+        fontOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                fontOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                selectedFont = option.dataset.font;
+            });
+        });
+
+        useDefaultFontCheckbox.addEventListener('change', (e) => {
+            useDefaultFont = e.target.checked;
+        });
+
+        previewFontBtn.addEventListener('click', () => {
+            if (useDefaultFont) {
+                document.documentElement.style.setProperty('--preview-font', 'Arial, sans-serif');
+            } else {
+                document.documentElement.style.setProperty('--preview-font', `'${selectedFont}'`);
+            }
+            
+            previewModal.classList.add('active');
+            previewDesktop.classList.add('active');
+            previewMobile.classList.remove('active');
+            
+            modalTabs.forEach(tab => tab.classList.remove('active'));
+            modalTabs[0].classList.add('active');
+        });
+
+        moduleCards.forEach(card => {
+            card.addEventListener('click', () => {
+                card.classList.toggle('selected');
+                const module = card.dataset.module;
+                
+                if (card.classList.contains('selected')) {
+                    if (!selectedModules.includes(module)) {
+                        selectedModules.push(module);
+                    }
+                } else {
+                    selectedModules = selectedModules.filter(m => m !== module);
+                }
+            });
+        });
+
+        modalTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                modalTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                if (tab.dataset.tab === 'desktop') {
+                    previewDesktop.classList.add('active');
+                    previewMobile.classList.remove('active');
+                } else {
+                    previewDesktop.classList.remove('active');
+                    previewMobile.classList.add('active');
+                }
+            });
+        });
+
+        modalClose.addEventListener('click', () => {
+            previewModal.classList.remove('active');
+        });
+
+        function updateSummary() {
+            document.getElementById('summary-name').textContent = configNameInput.value || 'Not specified';
+            document.getElementById('summary-platform').textContent = selectedPlatform ? selectedPlatform.charAt(0).toUpperCase() + selectedPlatform.slice(1) : 'Not selected';
+            document.getElementById('summary-version').textContent = selectedVersion || 'Not selected';
+            
+            const dependenciesList = document.getElementById('summary-dependencies');
+            dependenciesList.innerHTML = '';
+            
+            if (selectedPlatform && selectedVersion) {
+                const dependencies = platformData[selectedPlatform].versions[selectedVersion];
+                for (const [key, value] of Object.entries(dependencies)) {
+                    const li = document.createElement('li');
+                    li.textContent = `${key}: ${value}`;
+                    dependenciesList.appendChild(li);
+                }
+            }
+            
+            const modulesList = document.getElementById('summary-modules');
+            modulesList.innerHTML = '';
+            
+            if (selectedModules.length > 0) {
+                selectedModules.forEach(module => {
+                    const li = document.createElement('li');
+                    li.textContent = module.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+                    modulesList.appendChild(li);
+                });
+            } else {
+                const li = document.createElement('li');
+                li.textContent = 'No modules selected';
+                modulesList.appendChild(li);
+            }
+            
+            document.getElementById('summary-theme').textContent = selectedTheme.charAt(0).toUpperCase() + selectedTheme.slice(1);
+            document.getElementById('summary-font').textContent = useDefaultFont ? 'Default theme font' : selectedFont;
+            document.getElementById('summary-font').style.fontFamily = useDefaultFont ? 'inherit' : `'${selectedFont}'`;
+            
+            if (logoPreview.style.display === 'block') {
+                document.getElementById('summary-logo').src = logoPreview.src;
+            }
+            
+            if (faviconPreview.style.display === 'block') {
+                document.getElementById('summary-favicon').src = faviconPreview.src;
+            }
+            
+            document.getElementById('summary-sample-data').textContent = 
+                document.getElementById('install-sample-data').checked ? 'Yes' : 'No';
+                
+            document.querySelector('.summary-color:nth-child(1)').style.backgroundColor = primaryColor.value;
+            document.querySelector('.summary-color:nth-child(2)').style.backgroundColor = secondaryColor.value;
+            document.querySelector('.summary-color:nth-child(3)').style.backgroundColor = tertiaryColor.value;
+        }
+
+        showStep(0);
     </script>
 </body>
 </html>
