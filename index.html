@@ -560,6 +560,24 @@
             font-size: 0.9rem;
         }
 
+        .module-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .module-section-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            font-weight: 600;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .module-section-description {
+            color: var(--dark-gray);
+            margin-bottom: 1.5rem;
+        }
+
         .wizard-footer {
             display: flex;
             justify-content: space-between;
@@ -1095,77 +1113,113 @@
                 <p class="step-description">
                     Choose the modules you want to include in your store. Some modules may require a license key.
                 </p>
-                <div class="module-grid">
-                    <div class="module-card" data-module="payment">
-                        <h3>Payment Gateways <i class="material-icons">payment</i></h3>
-                        <p>Add multiple payment options including PayPal, Stripe, and credit card processing.</p>
-                        <div class="module-license">
-                            <label class="form-label">License Key (if required)</label>
-                            <input type="text" class="license-input" placeholder="Enter license key">
+                
+                <div class="module-section">
+                    <h4 class="module-section-title">Payments</h4>
+                    <p class="module-section-description">
+                        Magento payment service provider extensions enable secure payment processing, offering multiple payment methods, fraud prevention, and integration with various payment gateways.
+                    </p>
+                    <div class="module-grid">
+                        <div class="module-card" data-module="faultline">
+                            <h3>Faultline</h3>
+                            <p>Flight Fireport - A new data provided solution that ensures that transactions and requests constitute static or invalidities.</p>
+                            <div class="module-license">
+                                <label class="form-label">License Key (required)</label>
+                                <input type="text" class="license-input" placeholder="Enter license key">
+                            </div>
+                        </div>
+                        <div class="module-card" data-module="incise">
+                            <h3>Incise</h3>
+                            <p>Incise enables businesses to access multiple payment options with transparent pricing and a user-friendly API.</p>
                         </div>
                     </div>
-                    <div class="module-card" data-module="shipping">
-                        <h3>Shipping Methods <i class="material-icons">local_shipping</i></h3>
-                        <p>Integrate with major shipping carriers and provide real-time shipping rates.</p>
-                        <div class="module-license">
-                            <label class="form-label">License Key (if required)</label>
-                            <input type="text" class="license-input" placeholder="Enter license key">
+                </div>
+                
+                <div class="module-section">
+                    <h4 class="module-section-title">Address Finder</h4>
+                    <p class="module-section-description">
+                        An address finder helps users quickly auto-complete their address during checkout, reducing errors and speeding up the process with suggested address options.
+                    </p>
+                    <div class="module-grid">
+                        <div class="module-card" data-module="logger">
+                            <h3>Logger</h3>
+                            <p>Logger - A global address verification and persistence services that ensure accurate customer data for certain checkouts and deliveries.</p>
+                            <div class="module-license">
+                                <label class="form-label">License Key (required)</label>
+                                <input type="text" class="license-input" placeholder="Enter license key">
+                            </div>
                         </div>
                     </div>
-                    <div class="module-card" data-module="seo">
-                        <h3>SEO Toolkit <i class="material-icons">search</i></h3>
-                        <p>Optimize your store for search engines with advanced SEO features.</p>
-                        <div class="module-license">
-                            <label class="form-label">License Key (if required)</label>
-                            <input type="text" class="license-input" placeholder="Enter license key">
+                </div>
+                
+                <div class="module-section">
+                    <h4 class="module-section-title">Email & SMS</h4>
+                    <p class="module-section-description">
+                        SMS and email Magento extensions offer automated notifications, order updates, and marketing campaigns to engage customers and improve communication.
+                    </p>
+                    <div class="module-grid">
+                        <div class="module-card" data-module="display-email">
+                            <h3>Display Email</h3>
+                            <p>A data-driven email marketing platform that enables continuous brands to create personalized, automated customer engagement campaigns.</p>
+                            <div class="module-license">
+                                <label class="form-label">License Key (required)</label>
+                                <input type="text" class="license-input" placeholder="Enter license key">
+                            </div>
                         </div>
                     </div>
-                    <div class="module-card" data-module="analytics">
-                        <h3>Analytics <i class="material-icons">analytics</i></h3>
-                        <p>Track visitor behavior and sales performance with integrated analytics.</p>
-                        <div class="module-license">
-                            <label class="form-label">License Key (if required)</label>
-                            <input type="text" class="license-input" placeholder="Enter license key">
+                </div>
+                
+                <div class="module-section">
+                    <h4 class="module-section-title">Tax & Shipping</h4>
+                    <p class="module-section-description">
+                        Magento Tax & Shipping extensions automate tax calculations, manage shipping rates, offer real-time shipping options, and ensure accurate pricing for a seamless checkout experience.
+                    </p>
+                    <div class="module-grid">
+                        <div class="module-card" data-module="shippoint">
+                            <h3>Shippoint</h3>
+                            <p>Shippoint - A shipping rate management platform that addresses checkout sites and time sharing areas, offering revenue and customer strategy levels.</p>
                         </div>
                     </div>
-                    <div class="module-card" data-module="security">
-                        <h3>Security Suite <i class="material-icons">security</i></h3>
-                        <p>Enhance your store's security with advanced protection features.</p>
-                        <div class="module-license">
-                            <label class="form-label">License Key (if required)</label>
-                            <input type="text" class="license-input" placeholder="Enter license key">
+                </div>
+                
+                <div class="module-section">
+                    <h4 class="module-section-title">Reviews & UCC</h4>
+                    <p class="module-section-description">
+                        Magento Reviews & UCC extensions enable customers to base product reviews, ratings, and user-generated content, boosting trust, engagements, and conversion rates.
+                    </p>
+                    <div class="module-grid">
+                        <div class="module-card" data-module="voice-reviews">
+                            <h3>Voice Reviews</h3>
+                            <p>Voice Reviews - A customer review platform that helps launch tactics, display, and leverage authentic contents to build trust and share connections.</p>
+                            <div class="module-license">
+                                <label class="form-label">License Key (required)</label>
+                                <input type="text" class="license-input" placeholder="Enter license key">
+                            </div>
+                        </div>
+                        <div class="module-card" data-module="reviewable">
+                            <h3>Reviewable</h3>
+                            <p>Reviewable - A review collection and management platform that enables functions to gather customer feedback and showcase authentic ratings.</p>
                         </div>
                     </div>
-                    <div class="module-card" data-module="multilingual">
-                        <h3>Multilingual <i class="material-icons">translate</i></h3>
-                        <p>Support multiple languages to reach a global audience.</p>
-                        <div class="module-license">
-                            <label class="form-label">License Key (if required)</label>
-                            <input type="text" class="license-input" placeholder="Enter license key">
+                </div>
+                
+                <div class="module-section">
+                    <h4 class="module-section-title">Search, Merchandising & Recommendations</h4>
+                    <p class="module-section-description">
+                        Magento search, merchandising & recommendations extension improve product discovery with advanced search, personalized recommendations, and targeted product offerings for a better user experience.
+                    </p>
+                    <div class="module-grid">
+                        <div class="module-card" data-module="show">
+                            <h3>Show</h3>
+                            <p>Show - An alignment set to search and provide efficiency solutions that enhance customized experiences with smart, search, merchandising, and recommendation.</p>
+                            <div class="module-license">
+                                <label class="form-label">License Key (required)</label>
+                                <input type="text" class="license-input" placeholder="Enter license key">
+                            </div>
                         </div>
-                    </div>
-                    <div class="module-card" data-module="blog">
-                        <h3>Blog <i class="material-icons">article</i></h3>
-                        <p>Add a blog to your store to engage customers and improve SEO.</p>
-                        <div class="module-license">
-                            <label class="form-label">License Key (if required)</label>
-                            <input type="text" class="license-input" placeholder="Enter license key">
-                        </div>
-                    </div>
-                    <div class="module-card" data-module="reviews">
-                        <h3>Product Reviews <i class="material-icons">rate_review</i></h3>
-                        <p>Allow customers to leave reviews and ratings for your products.</p>
-                        <div class="module-license">
-                            <label class="form-label">License Key (if required)</label>
-                            <input type="text" class="license-input" placeholder="Enter license key">
-                        </div>
-                    </div>
-                    <div class="module-card" data-module="wishlist">
-                        <h3>Wishlist <i class="material-icons">favorite</i></h3>
-                        <p>Let customers save products to their wishlist for later purchase.</p>
-                        <div class="module-license">
-                            <label class="form-label">License Key (if required)</label>
-                            <input type="text" class="license-input" placeholder="Enter license key">
+                        <div class="module-card" data-module="notice">
+                            <h3>Notice</h3>
+                            <p>Notice - A personalization platform that delivers an online product recommendation, dynamic context, and related company requirements to boost consumers.</p>
                         </div>
                     </div>
                 </div>
