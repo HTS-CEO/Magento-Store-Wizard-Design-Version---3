@@ -9,9 +9,9 @@
     <style>
         :root {
             --primary-color: #009bde;
-            --secondary-color: #0078b4;
-            --tertiary-color: #005a8c;
-            --accent-color: #4fc3f7;
+            --secondary-color: #0f488a;
+            --tertiary-color: #ff7101;
+            --accent-color: #ff7101;
             --text-color: #333;
             --light-gray: #f5f5f5;
             --medium-gray: #e0e0e0;
@@ -156,7 +156,7 @@
 
         .progress {
             height: 100%;
-            background-color: var(--primary-color);
+            background-color: #ff7101;
             width: 25%;
             transition: width 0.3s;
         }
@@ -221,7 +221,7 @@
         .form-control:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(0, 160, 225, 0.2);
+            box-shadow: 0 0 0 2px rgba(0, 155, 222, 0.2);
         }
 
         .platform-options {
@@ -248,7 +248,7 @@
 
         .platform-card.selected {
             border-color: var(--primary-color);
-            background-color: rgba(0, 160, 225, 0.05);
+            background-color: rgba(0, 155, 222, 0.05);
         }
 
         .platform-card img {
@@ -350,7 +350,7 @@
 
         .theme-card.selected {
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(0, 160, 225, 0.2);
+            box-shadow: 0 0 0 3px rgba(0, 155, 222, 0.2);
         }
 
         .theme-card img {
@@ -488,7 +488,7 @@
         }
 
         .font-option.selected {
-            background-color: rgba(0, 160, 225, 0.1);
+            background-color: rgba(0, 155, 222, 0.1);
             color: var(--primary-color);
             font-weight: 500;
         }
@@ -526,7 +526,7 @@
 
         .module-card.selected {
             border-color: var(--primary-color);
-            background-color: rgba(0, 160, 225, 0.05);
+            background-color: rgba(0, 155, 222, 0.05);
         }
 
         .module-card h3 {
@@ -603,7 +603,7 @@
         }
 
         .btn-outline:hover {
-            background-color: rgba(0, 160, 225, 0.1);
+            background-color: rgba(0, 155, 222, 0.1);
         }
 
         .btn-disabled {
@@ -981,7 +981,6 @@
         <div class="sidebar">
             <div class="sidebar-header">
                 <img src="https://www.corefinity.com/images/logo.svg" alt="Corefinity Logo">
-             
             </div>
             <div class="nav-menu">
                 <div class="nav-item active" data-step="intro">
@@ -1205,15 +1204,15 @@
                         <div class="color-picker-group">
                             <div class="color-picker">
                                 <label class="color-picker-label">Primary</label>
-                                <input type="color" id="primary-color" value="#00a0e1">
+                                <input type="color" id="primary-color" value="#009bde">
                             </div>
                             <div class="color-picker">
                                 <label class="color-picker-label">Secondary</label>
-                                <input type="color" id="secondary-color" value="#0078b4">
+                                <input type="color" id="secondary-color" value="#0f488a">
                             </div>
                             <div class="color-picker">
                                 <label class="color-picker-label">Accent</label>
-                                <input type="color" id="tertiary-color" value="#005a8c">
+                                <input type="color" id="tertiary-color" value="#ff7101">
                             </div>
                         </div>
                         <button class="btn btn-outline" id="preview-colors-btn">Preview Colors</button>
@@ -1354,9 +1353,9 @@
                         <div class="summary-item">
                             <strong>Color Scheme</strong>
                             <div class="summary-colors">
-                                <div class="summary-color" style="background-color: #00a0e1;"></div>
-                                <div class="summary-color" style="background-color: #0078b4;"></div>
-                                <div class="summary-color" style="background-color: #005a8c;"></div>
+                                <div class="summary-color" style="background-color: #009bde;"></div>
+                                <div class="summary-color" style="background-color: #0f488a;"></div>
+                                <div class="summary-color" style="background-color: #ff7101;"></div>
                             </div>
                         </div>
                     </div>
@@ -1824,8 +1823,8 @@
         });
 
         previewThemeBtn.addEventListener('click', () => {
-            document.documentElement.style.setProperty('--preview-primary', '#00a0e1');
-            document.documentElement.style.setProperty('--preview-secondary', '#0078b4');
+            document.documentElement.style.setProperty('--preview-primary', '#009bde');
+            document.documentElement.style.setProperty('--preview-secondary', '#0f488a');
             document.documentElement.style.setProperty('--preview-tertiary', '#ffffff');
             document.documentElement.style.setProperty('--preview-font', 'Inter');
             
